@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Skyarium Privacy</title>
+<meta name="description" content="What Skyarium and Skyarium Spotter do with your data: no accounts, no ads, no tracking; your location only to ask public services what's flying nearby.">
+<meta name="theme-color" content="#1b1838">
+<link rel="icon" href="assets/favicon-64.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* The landing page's dusk palette; always dark by design, like the site. */
+  :root {
+    --night: #121430;
+    --deep: #1b1838;
+    --glow: #f7c98b;
+    --mint: #4fd1b0;
+    --ink: #f3ede4;
+    --muted: #b9b2c6;
+    --line: rgba(243, 237, 228, 0.12);
+    --card: rgba(255, 255, 255, 0.045);
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--night);
+    color: var(--ink);
+    font: 17px/1.65 Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--glow); }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 16px; }
+  header { padding: 40px 0 8px; }
+  header a.home { display: inline-flex; align-items: center; gap: 12px; color: var(--ink); text-decoration: none; font-weight: 600; }
+  header img { width: 40px; height: 40px; border-radius: 10px; }
+  h1, h2 { font-family: Fraunces, Georgia, serif; font-weight: 650; line-height: 1.15; }
+  h1 { font-size: clamp(34px, 6vw, 48px); margin: 36px 0 8px; }
+  h2 { font-size: 24px; margin: 40px 0 10px; }
+  .updated { color: var(--muted); font-size: 15px; margin: 0 0 24px; }
+  .summary { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 20px 22px; }
+  .summary p { margin: 0; }
+  p, li { color: #ddd6e6; }
+  ul { padding-left: 22px; }
+  li { margin: 6px 0; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 15px; }
+  th, td { text-align: left; vertical-align: top; padding: 10px 8px; border-bottom: 1px solid var(--line); }
+  th { color: var(--mint); font-weight: 600; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; }
+  td:first-child { white-space: nowrap; color: var(--ink); }
+  .table { overflow-x: auto; }
+  footer { margin: 56px 0 40px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header><a class="home" href="index.html"><img src="assets/apple-touch-icon.png" alt="">Skyarium</a></header>
+
+  <main>
+    <h1>Privacy</h1>
+    <p class="updated">For Skyarium and Skyarium Spotter · last updated October 24, 2026</p>
+
+    <div class="summary">
+      <p>There's no account, no ads, no analytics and no tracking. We don't collect anything about you:
+      your Logbook, photos and settings stay on your iPhone. To show what's flying, the apps ask
+      public flight and weather services about a point on the map, the place you're watching, and
+      nothing that identifies you.</p>
+    </div>
+
+    <h2>Your location</h2>
+    <p>With your permission, the apps use your iPhone's location to find the planes, weather and
+    terrain around you. It's used on your phone and never stored anywhere else. What leaves the phone
+    is a map position, sent with requests like "what's flying
+    within 50 miles of here" or "what's the weather here". When you watch from somewhere else, such
+    as a famous spotting spot or an airport you searched for, that place's position is sent instead of yours.</p>
+
+    <h2>Who the apps talk to, and what they send</h2>
+    <div class="table">
+    <table>
+      <tr><th>Service</th><th>What for</th><th>What's sent</th></tr>
+      <tr><td>adsb.fi, adsb.lol</td><td>Live flights nearby</td><td>A map position and a radius</td></tr>
+      <tr><td>adsbdb, adsb.im</td><td>Aircraft details and routes</td><td>The aircraft's public transponder code and callsign</td></tr>
+      <tr><td>planespotters.net</td><td>Aircraft photos</td><td>The aircraft's public registration</td></tr>
+      <tr><td>Open-Meteo, aviationweather.gov</td><td>Weather and which way airports are landing</td><td>A map position</td></tr>
+      <tr><td>Amazon Web Services (Terrarium elevation tiles)</td><td>The shape of the land on the horizon</td><td>Map tiles around the place you're watching</td></tr>
+      <tr><td>Apple Maps</td><td>Searching for a place to watch from</td><td>What you type in the search</td></tr>
+    </table>
+    </div>
+    <p>These are public services with their own privacy practices. Like any website, they see your
+    internet address when the app asks them something. The apps don't send them your name, email,
+    contacts, device identifiers or anything else about you.</p>
+
+    <h2>Camera and photos (Skyarium Spotter)</h2>
+    <p>Spotter uses the camera to find planes in the sky. The picture is processed on your iPhone
+    and never uploaded. Catch photos are saved inside the app. They're added to your photo library
+    only when you tap Save to Photos, and the app asks only for permission to add photos, never to
+    read your library.</p>
+
+    <h2>On your phone only</h2>
+    <ul>
+      <li>Your Logbook of catches and saved flights, and your settings.</li>
+      <li>A short diagnostic log of how spotting went (sensor readings, what was detected), used to
+      improve the app. It stays in the app's storage and is never sent anywhere. It's deleted with the app.</li>
+    </ul>
+    <p>Deleting the app deletes all of it. If you use iCloud backups, iOS may include the app's data
+    in your own backup, as it does for any app.</p>
+
+    <h2>Children</h2>
+    <p>The apps don't collect personal information from anyone, children included.</p>
+
+    <h2>Changes</h2>
+    <p>If this changes, for example if a future version adds something optional that sends data, this
+    page will say so before it ships, and the date above will change.</p>
+
+    <h2>Questions</h2>
+    <!-- TODO: a contact address once there is one. -->
+    <p>During the beta, use <strong>Send Beta Feedback</strong> in the TestFlight app, or take a
+    screenshot in the app and share it through TestFlight.</p>
+  </main>
+
+  <footer>© 2026 Skyarium · <a href="index.html">skyarium.app</a></footer>
+</div>
+</body>
+</html>

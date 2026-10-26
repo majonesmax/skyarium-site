@@ -102,6 +102,14 @@
   .btn.ghost { color: var(--ink); border: 1px solid #f3ede455; }
 
   section { padding: 96px 0; }
+
+  /* Below the fold: the wall, a phone on its side playing a short loop. */
+  .wall { text-align: center; }
+  .wall .lead { margin: 0 auto; }
+  .landscape { position: relative; max-width: 900px; margin: 44px auto 0; border-radius: 40px; padding: 10px; background: #0b0c18;
+    box-shadow: 0 30px 80px #0009, inset 0 0 0 1px #ffffff1a; }
+  .landscape video { display: block; width: 100%; height: auto; aspect-ratio: 1280 / 588; border-radius: 31px; background: #1b1838; }
+  @media (max-width: 420px) { .landscape { border-radius: 26px; padding: 6px; } .landscape video { border-radius: 21px; } }
   .eyebrow { color: var(--mint); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; font-size: 13px; }
   h2 { font-size: clamp(30px, 4.6vw, 46px); margin: 10px 0 18px; }
   .lead { color: var(--muted); font-size: 19px; max-width: 640px; }
@@ -208,7 +216,21 @@
   </div>
 </header>
 
-
+<section class="wall" id="wall">
+  <div class="wrap">
+    <div class="eyebrow">The Wall</div>
+    <h2>Skyarium on your wall</h2>
+    <p class="lead">Stand a spare iPhone on its side and it becomes a window onto the flight path. The
+      Horizon directs itself, cutting to whatever's landing or taking off, between an arrivals board
+      and a list of everything flying nearby. At home, a chime tells you a plane is about to pass
+      over. Watching somewhere else, it keeps your time as well as theirs.</p>
+    <div class="landscape">
+      <video src="assets/wall.mp4" poster="assets/wall-poster.jpg" width="1280" height="588"
+             autoplay muted loop playsinline preload="metadata"
+             aria-label="Skyarium's Wall at Heathrow at dusk: following a Boeing 777 climbing out, the arrivals board, a 787 on final, and the list of nearby flights"></video>
+    </div>
+  </div>
+</section>
 
 <footer>
   <div class="wrap row">
@@ -227,7 +249,7 @@
     document.getElementById("cross").setAttribute("opacity", video.muted ? "1" : "0");
   }
   if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    video.removeAttribute("autoplay"); video.pause(); video.controls = true;
+    for (const v of document.querySelectorAll("video")) { v.removeAttribute("autoplay"); v.pause(); v.controls = true; }
   }
   sound.addEventListener("click", () => {
     video.muted = !video.muted;

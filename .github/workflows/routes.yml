@@ -1,0 +1,34 @@
+# Rebuild skyarium.app/routes/v1/ from the VRS standing data (CC0) every morning, after VRS
+# publishes (~05:00 UTC). Commits only when the routes changed. Source of truth: the Skyarium
+# project's scripts/site/routes.yml and tools/build_routes.py (copied here by publish-site.sh).
+name: Routes
+on:
+  schedule:
+    - cron: "30 6 * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+  pages: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch the VRS standing data (routes and airports only)
+        run: |
+          git clone -q --depth 1 --filter=blob:none --sparse https://github.com/vradarserver/standing-data.git "$RUNNER_TEMP/sd"
+          git -C "$RUNNER_TEMP/sd" sparse-checkout set routes airports
+      - name: Build
+        run: python3 tools/build_routes.py "$RUNNER_TEMP/sd" .
+      - name: Commit and publish if changed
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git add -A routes
+          if git diff --cached --quiet -- routes ':(exclude)routes/v1/index.json'; then
+            echo "Routes unchanged."; exit 0
+          fi
+          git -c user.name="Skyarium routes" -c user.email="actions@users.noreply.github.com" commit -qm "Routes from VRS standing data"
+          git push -q
+          # Pushes made with this token don't start a Pages build on their own.
+          gh api -X POST "repos/${{ github.repository }}/pages/builds" > /dev/null

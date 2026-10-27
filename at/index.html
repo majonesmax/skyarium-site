@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Watch the planes from here · Skyarium</title>
+<meta name="description" content="A place to watch planes from, shared from Skyarium.">
+<meta name="theme-color" content="#1b1838">
+<meta property="og:title" content="Watch the planes from here">
+<meta property="og:description" content="A place to watch planes from, shared from Skyarium. Open it in Skyarium to see every real flight around it, live.">
+<meta property="og:image" content="https://skyarium.app/assets/horizon.jpg">
+<script>
+  // Safari's banner: "Open" in Skyarium with this very link (the place is in the #fragment, which
+  // never reaches the server; it's read here, in the browser, and nowhere else).
+  document.write('<meta name="apple-itunes-app" content="app-id=6826740904, app-argument=' +
+    location.href.replace(/"/g, '%22') + '">');
+</script>
+<link rel="icon" href="../assets/favicon-64.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* The landing page's dusk palette; always dark by design, like the site. */
+  :root {
+    --night: #121430;
+    --deep: #1b1838;
+    --glow: #f7c98b;
+    --ink: #f3ede4;
+    --muted: #b9b2c6;
+    --line: rgba(243, 237, 228, 0.12);
+    --card: rgba(255, 255, 255, 0.045);
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: linear-gradient(180deg, var(--night) 0%, var(--deep) 70%, #2a1f45 100%) fixed;
+    color: var(--ink);
+    font: 17px/1.65 Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  a { color: var(--glow); }
+  .wrap { max-width: 640px; margin: 0 auto; padding: 0 16px; }
+  header { padding: 40px 0 8px; }
+  header a.home { display: inline-flex; align-items: center; gap: 12px; color: var(--ink); text-decoration: none; font-weight: 600; }
+  header img { width: 40px; height: 40px; border-radius: 10px; }
+  h1 { font-family: Fraunces, Georgia, serif; font-weight: 650; line-height: 1.15; font-size: clamp(32px, 7vw, 46px); margin: 40px 0 10px; overflow-wrap: anywhere; }
+  .where { color: var(--muted); margin: 0 0 28px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 20px 22px; }
+  .card p { margin: 0 0 12px; color: #ddd6e6; }
+  .get { display: inline-block; margin-top: 4px; padding: 12px 20px; border-radius: 999px; background: var(--glow); color: #1b1838; font-weight: 600; text-decoration: none; }
+  .small { color: var(--muted); font-size: 14px; margin-top: 18px; }
+  footer { margin: 56px 0 40px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="home" href="../index.html"><img src="../assets/icon-256.png" alt="">Skyarium</a>
+  </header>
+
+  <main>
+    <h1 id="title">Watch the planes from here</h1>
+    <p class="where" id="where">A place to watch planes from, shared from Skyarium.</p>
+
+    <div class="card">
+      <p>Open this link on an iPhone with Skyarium and it takes you there, facing the same way, with
+      every real flight around it, live, in a drawn sky.</p>
+      <a class="get" href="https://apps.apple.com/app/id6826740904">Get Skyarium, free</a>
+      <p class="small">Already have it? Tap Open in the banner at the top, or tap the link again
+      from Messages or Mail.</p>
+    </div>
+  </main>
+
+  <footer>© 2026 Skyarium · <a href="../index.html">skyarium.app</a> · <a href="../support.html">Support</a> · <a href="../privacy.html">Privacy</a></footer>
+</div>
+<script>
+  // #lat,lon/facing/Name-in-words (D177). Read here only, shown as text (never as HTML).
+  (function () {
+    var parts = location.hash.length > 1 ? location.hash.slice(1).split('/') : [];
+    var pos = (parts[0] || '').split(',').map(Number);
+    if (pos.length !== 2 || !isFinite(pos[0]) || !isFinite(pos[1]) || Math.abs(pos[0]) > 90 || Math.abs(pos[1]) > 180) return;
+    var name = (parts[2] || '').split('-').map(function (w) {
+      try { return decodeURIComponent(w); } catch (e) { return ''; }
+    }).join(' ').replace(/[\u0000-\u001f]/g, '').trim().slice(0, 60);
+    var facing = parts[1] === undefined || parts[1] === '' ? NaN : ((Number(parts[1]) % 360) + 360) % 360;
+    var dirs = ['north', 'northeast', 'east', 'southeast', 'south', 'southwest', 'west', 'northwest'];
+    var lat = Math.abs(pos[0]).toFixed(4) + '° ' + (pos[0] >= 0 ? 'N' : 'S');
+    var lon = Math.abs(pos[1]).toFixed(4) + '° ' + (pos[1] >= 0 ? 'E' : 'W');
+    if (name) {
+      document.getElementById('title').textContent = 'Watch the planes from ' + name;
+      document.title = name + ' · Skyarium';
+    }
+    document.getElementById('where').textContent = lat + ', ' + lon +
+      (isFinite(facing) ? ', facing ' + dirs[Math.floor((facing + 22.5) / 45) % 8] : '');
+  })();
+</script>
+</body>
+</html>

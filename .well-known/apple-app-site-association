@@ -1,0 +1,13 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["FP44XZN9CD.app.skyarium.Skyarium", "FP44XZN9CD.dev.planedex.Planedex"],
+        "components": [
+          { "/": "/at/*", "comment": "A shared place to watch from (D177); the place is in the #fragment" },
+          { "/": "/at", "comment": "The same, without the trailing slash" }
+        ]
+      }
+    ]
+  }
+}

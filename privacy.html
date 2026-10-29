@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Skyarium Privacy</title>
-<meta name="description" content="What Skyarium and Skyarium Spotter do with your data: no accounts, no ads, no tracking; your location only to ask public services what's flying nearby.">
+<meta name="description" content="What Skyarium does with your data: no accounts, no ads, no tracking; your location only to ask public services what's flying nearby.">
 <meta name="theme-color" content="#1b1838">
 <link rel="icon" href="assets/favicon-64.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
@@ -60,23 +60,30 @@
 
   <main>
     <h1>Privacy</h1>
-    <p class="updated">For Skyarium and Skyarium Spotter · last updated October 27, 2026</p>
+    <p class="updated">For Skyarium · last updated October 28, 2026</p>
 
     <div class="summary">
       <p>There's no account, no ads, no analytics and no tracking. We don't collect anything about you:
-      your Logbook, photos and settings stay on your iPhone. To show what's flying, the apps ask
+      your Logbook and settings stay on your iPhone. To show what's flying, the app asks
       public flight and weather services about a point on the map, the place you're watching, and
       nothing that identifies you.</p>
     </div>
 
     <h2>Your location</h2>
-    <p>With your permission, the apps use your iPhone's location to find the planes, weather and
+    <p>With your permission, the app uses your iPhone's location to find the planes, weather and
     terrain around you. It's used on your phone and never stored anywhere else. What leaves the phone
     is a map position rounded to about a kilometer (a bit over half a mile), sent with requests like "what's flying
     within 50 miles of here" or "what's the weather here". When you watch from somewhere else, such
     as a famous spotting spot or an airport you searched for, that place's position is sent instead of yours.</p>
 
-    <h2>Who the apps talk to, and what they send</h2>
+    <h2>Sharing a place</h2>
+    <p>When you share a place from Skyarium, the link holds that place's position, the direction
+    you were facing and its name, and nothing about you. They sit after the "#" in the link, the
+    part browsers never send to a website, so even skyarium.app's server doesn't see them. Your own
+    location can't be shared: the Share button only appears when you're watching from a place you
+    chose.</p>
+
+    <h2>Who the app talks to, and what it sends</h2>
     <div class="table">
     <table>
       <tr><th>Service</th><th>What for</th><th>What's sent</th></tr>
@@ -87,30 +94,24 @@
       <tr><td>planespotters.net</td><td>Aircraft photos</td><td>The aircraft's public registration</td></tr>
       <tr><td>Open-Meteo, aviationweather.gov</td><td>Weather and which way airports are landing</td><td>A map position</td></tr>
       <tr><td>Amazon Web Services (Terrarium elevation tiles)</td><td>The shape of the land on the horizon</td><td>Map tiles around the place you're watching</td></tr>
-      <tr><td>Apple Maps</td><td>Searching for a place to watch from</td><td>What you type in the search</td></tr>
+      <tr><td>Apple Maps</td><td>Searching for a place to watch from, and a chosen place's time zone</td><td>What you type in the search, or the chosen place's position</td></tr>
     </table>
     </div>
     <p>These are public services with their own privacy practices. Like any website, they see your
-    internet address when the app asks them something. The apps don't send them your name, email,
+    internet address when the app asks them something. The app doesn't send them your name, email,
     contacts, device identifiers or anything else about you.</p>
-
-    <h2>Camera and photos (Skyarium Spotter)</h2>
-    <p>Spotter uses the camera to find planes in the sky. The picture is processed on your iPhone
-    and never uploaded. Catch photos are saved inside the app. They're added to your photo library
-    only when you tap Save to Photos, and the app asks only for permission to add photos, never to
-    read your library.</p>
 
     <h2>On your phone only</h2>
     <ul>
-      <li>Your Logbook of catches and saved flights, and your settings.</li>
-      <li>A short diagnostic log of how spotting went (sensor readings, what was detected), used to
-      improve the app. It stays in the app's storage and is never sent anywhere. It's deleted with the app.</li>
+      <li>Your Logbook of saved flights, and your settings.</li>
+      <li>A short diagnostic log (what the flight feed said about a plane you were watching, what the
+      wall announced), used to improve the app. It stays in the app's storage and is never sent anywhere. It's deleted with the app.</li>
     </ul>
     <p>Deleting the app deletes all of it. If you use iCloud backups, iOS may include the app's data
     in your own backup, as it does for any app.</p>
 
     <h2>Children</h2>
-    <p>The apps don't collect personal information from anyone, children included.</p>
+    <p>The app doesn't collect personal information from anyone, children included.</p>
 
     <h2>Changes</h2>
     <p>If this changes, for example if a future version adds something optional that sends data, this

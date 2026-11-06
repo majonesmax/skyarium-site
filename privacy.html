@@ -60,7 +60,7 @@
 
   <main>
     <h1>Privacy</h1>
-    <p class="updated">For Skyarium · last updated October 28, 2026</p>
+    <p class="updated">For Skyarium and Skyarium Web · last updated November 6, 2026</p>
 
     <div class="summary">
       <p>There's no account, no ads, no analytics and no tracking. We don't collect anything about you:
@@ -110,6 +110,28 @@
     </ul>
     <p>Deleting the app deletes all of it. If you use iCloud backups, iOS may include the app's data
     in your own backup, as it does for any app.</p>
+
+    <h2 id="web">Skyarium Web and its Chrome extension</h2>
+    <p><a href="web/">Skyarium Web</a> shows the planes passing over any place you choose, live in your browser. It works the same way as
+    the app: no account, no ads, no analytics, nothing collected about you.</p>
+    <ul>
+      <li><b>Your location.</b> If you choose "use my location", your browser shares your position
+      with the page. It isn't saved: the next visit asks your browser again. Like the app, the page sends a
+      position rounded to about a kilometer (a bit over half a mile) to ask what's flying nearby.</li>
+      <li><b>The extension.</b> adsb.fi doesn't accept requests from web pages, so the Skyarium Web
+      extension makes that one request from your browser: a rounded position and a radius, sent to
+      adsb.fi. It can't reach any other site, and it doesn't read or change the pages you visit.
+      It only runs on skyarium.app/web. It remembers which tab has the wall open, so its button can
+      take you back there, and forgets that when you close the browser.</li>
+      <li><b>Searching for a place.</b> What you type is sent to Photon by komoot, an OpenStreetMap
+      search service.</li>
+      <li><b>Routes and photos.</b> The page asks adsbdb and skyarium.app for flight routes, using
+      the flights' public callsigns, and asks planespotters.net for photos, using their public
+      registrations.</li>
+      <li><b>On your computer only.</b> The place you chose to watch (not your own location), your recent places, the radius
+      and your sound setting are kept in your browser's storage for this site. Clearing the site's
+      data, or removing the extension, removes them.</li>
+    </ul>
 
     <h2>Children</h2>
     <p>The app doesn't collect personal information from anyone, children included.</p>

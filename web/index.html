@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Skyarium Web</title>
+    <link rel="icon" type="image/png" href="/web/favicon.png" />
+    <link rel="apple-touch-icon" href="/web/apple-touch-icon.png" />
+    <script type="module" crossorigin src="/web/assets/index-BLdwUz3W.js"></script>
+    <link rel="stylesheet" crossorigin href="/web/assets/index-DtTMoP2J.css">
+  </head>
+  <body>
+    <header>
+      <h1>Skyarium <span>Web</span></h1>
+      <div class="stats">
+        <button class="place-btn" id="place-btn" type="button" title="Change where Skyarium Web looks">
+          <span id="place-ic"></span><span id="place">Choose a place</span>
+        </button>
+        <span class="within"
+          ><b id="count">–</b> aircraft within
+          <select id="radius" aria-label="How far out to look"></select
+        ></span>
+        <span class="next-pass" id="next-pass" hidden></span>
+        <span id="fresh"><span class="dot stale"></span>waiting</span>
+        <button class="place-btn sound-btn" id="sound" type="button" aria-pressed="false">
+          <span id="sound-ic"></span><span id="sound-label">Chime off</span>
+        </button>
+        <button class="place-btn icon-btn" id="fullscreen" type="button" aria-pressed="false" aria-label="Full screen">
+          <span id="fullscreen-ic"></span>
+        </button>
+        <label class="toggle"><input type="checkbox" id="ga" /> General aviation</label>
+      </div>
+    </header>
+    <main id="main"></main>
+
+    <div class="scrim" id="scrim">
+      <div class="picker" role="dialog" aria-label="Choose a place">
+        <form id="search-form">
+          <input id="search" type="search" placeholder="Search a city, airport or address" autocomplete="off" />
+          <button type="submit">Search</button>
+        </form>
+        <div id="picker-body"></div>
+        <div class="credit">
+          Places from <a href="https://photon.komoot.io" target="_blank" rel="noopener">Photon</a> by komoot, with data
+          ©
+          <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>
+          contributors. Airports from the route files.
+        </div>
+      </div>
+    </div>
+    <div class="peek" id="peek" aria-hidden="true"></div>
+    <div class="scrim" id="airport-scrim">
+      <div class="detail airport-card" id="airport-card" role="dialog" aria-label="Airport">
+        <button class="close" type="button" aria-label="Close">✕</button>
+        <div class="inner">
+          <div id="apt-top"></div>
+          <section class="apt-map-wrap">
+            <h3>From above</h3>
+            <canvas id="apt-map" role="img" aria-label="The runways from above, the arrivals' finals, and you"></canvas>
+          </section>
+          <div id="apt-bottom"></div>
+        </div>
+      </div>
+    </div>
+    <div class="scrim" id="detail-scrim">
+      <div class="detail" id="detail" role="dialog" aria-label="Flight details"></div>
+    </div>
+  </body>
+</html>

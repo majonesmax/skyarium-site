@@ -100,6 +100,8 @@
   .btn.primary { background: var(--ink); color: var(--deep); }
   .btn.primary[aria-disabled="true"] { opacity: 0.9; cursor: default; }
   .btn.ghost { color: var(--ink); border: 1px solid #f3ede455; }
+  .store { display: inline-block; line-height: 0; }
+  .store img { display: block; height: 54px; width: auto; }
 
   section { padding: 96px 0; }
 
@@ -199,8 +201,8 @@
     <div class="tagline">Stand under the world's flight paths.</div>
     <p class="lede">Watch real planes, live, from the great plane-spotting spots of the world, or from your own backyard. A planetarium for air traffic, drawn on real terrain, skylines and weather.</p>
     <div class="ctas">
-      <!-- TODO: swap for the App Store link and badge once it's listed. -->
-      <span class="btn primary" aria-disabled="true">Coming soon to the App Store</span>
+      <!-- Apple's own badge, unaltered (Apple Marketing Tools); it links to the listing. -->
+      <a class="store" href="https://apps.apple.com/us/app/skyarium/id6826740904"><img src="assets/app-store-badge.svg" alt="Download on the App Store" width="162" height="54"></a>
     </div>
     </div>
     <!-- The promo: real flights, recorded in the app. Autoplays muted, with a button for the music. -->

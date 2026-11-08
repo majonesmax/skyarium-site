@@ -1,5 +1,4 @@
 {
   "feeds": ["adsbFi", "adsbLol"],
-  "off": ["adsbFi", "adsbLol"],
-  "notice": "Test: live flights paused from the settings file."
+  "off": []
 }

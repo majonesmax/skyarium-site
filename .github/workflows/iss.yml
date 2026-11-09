@@ -1,0 +1,32 @@
+# Keep skyarium.app/iss/v1.tle current: the space station's orbital elements from CelesTrak (D229),
+# every six hours, so the app never asks CelesTrak itself. Commits only when they changed. Source of
+# truth: the Skyarium project's scripts/site/iss.yml (copied here by publish-site.sh).
+name: Space station
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+  pages: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch the elements
+        run: |
+          curl -fsS -A "Skyarium (+https://skyarium.app)" \
+            "https://celestrak.org/NORAD/elements/gp.php?CATNR=25544&FORMAT=TLE" -o "$RUNNER_TEMP/iss.tle"
+          # Three lines, the two element lines for 25544, or keep what's there.
+          awk 'NR==2 && /^1 25544/ {a=1} NR==3 && /^2 25544/ {b=1} END {exit !(a && b && NR==3)}' "$RUNNER_TEMP/iss.tle"
+          mkdir -p iss && cp "$RUNNER_TEMP/iss.tle" iss/v1.tle
+      - name: Commit and publish if changed
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git add -A iss
+          if git diff --cached --quiet -- iss; then echo "Unchanged."; exit 0; fi
+          git -c user.name="Skyarium space station" -c user.email="actions@users.noreply.github.com" commit -qm "Space station elements"
+          git push -q
+          gh api -X POST "repos/${{ github.repository }}/pages/builds" > /dev/null

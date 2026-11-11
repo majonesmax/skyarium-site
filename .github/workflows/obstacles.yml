@@ -1,0 +1,34 @@
+# Keep skyarium.app/obstacles/v1/ current: the Horizon's local icons (water towers, masts, stacks, grain
+# elevators, wind turbines) from the FAA's Digital Obstacle File, in 1° tiles (D240), so the app never asks the
+# FAA itself. The FAA updates it every 56 days; this checks monthly and commits only when tiles changed.
+# Source of truth: the Skyarium project's scripts/site/obstacles.yml and tools/build_obstacles.py (copied here
+# by publish-site.sh).
+name: Obstacles
+on:
+  schedule:
+    - cron: "41 6 3 * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+  pages: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch the FAA's file and build the tiles
+        run: |
+          curl -fsSL -A "Skyarium (+https://skyarium.app)" "https://aeronav.faa.gov/Obst_Data/DAILY_DOF_DAT.ZIP" -o "$RUNNER_TEMP/dof.zip"
+          unzip -o -q "$RUNNER_TEMP/dof.zip" -d "$RUNNER_TEMP/dof"
+          python3 -I tools/build_obstacles.py "$RUNNER_TEMP/dof/DOF.DAT" obstacles
+          # A broken download makes few tiles: keep what's there.
+          test "$(ls obstacles/v1 | wc -l)" -gt 500
+      - name: Commit and publish if changed
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git add -A obstacles
+          if git diff --cached --quiet -- obstacles; then echo "Unchanged."; exit 0; fi
+          git -c user.name="Skyarium obstacles" -c user.email="actions@users.noreply.github.com" commit -qm "Obstacle tiles"
+          git push -q
+          gh api -X POST "repos/${{ github.repository }}/pages/builds" > /dev/null

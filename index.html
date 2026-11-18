@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Skyarium</title>
-<meta name="description" content="Watch real planes from the world's great plane-spotting spots, or from your own backyard. Live flight traffic in a drawn world of real terrain, skylines and weather. Free for iPhone.">
+<meta name="description" content="A planetarium for plane spotting. Watch live flights cross the horizon from your own backyard or the great spotting places of the world, each plane in its real paint. Free for iPhone.">
 <meta property="og:title" content="Skyarium">
-<meta property="og:description" content="Stand under the world's flight paths. Live planes, real horizons, anywhere.">
+<meta property="og:description" content="A planetarium for plane spotting. Live planes in their real paint, real horizons, anywhere.">
 <meta property="og:image" content="assets/promo-poster.jpg">
 <meta name="theme-color" content="#1b1838">
 <link rel="icon" href="assets/favicon-64.png">
@@ -78,7 +78,7 @@
   .hero .has-video .ctas { justify-content: flex-start; }
   .hero .phone { position: relative; max-width: 340px; width: 100%; border-radius: 42px; padding: 10px; background: #0b0c18;
     box-shadow: 0 30px 80px #0009, inset 0 0 0 1px #ffffff1a; justify-self: center; }
-  .hero .phone video { display: block; width: 100%; height: auto; aspect-ratio: 720 / 1476; border-radius: 33px; background: #1b1838; }
+  .hero .phone video { display: block; width: 100%; height: auto; aspect-ratio: 720 / 1560; border-radius: 33px; background: #1b1838; }
   .sound { position: absolute; right: 22px; bottom: 22px; width: 40px; height: 40px; border-radius: 50%; border: 0;
     background: #0b0c18b3; color: var(--ink); cursor: pointer; display: grid; place-items: center; }
   .sound svg { width: 20px; height: 20px; }
@@ -198,8 +198,8 @@
     <div>
     <img class="icon" src="assets/icon-256.png" alt="Skyarium app icon" width="112" height="112">
     <h1>Skyarium</h1>
-    <div class="tagline">Stand under the world's flight paths.</div>
-    <p class="lede">Watch real planes, live, from the great plane-spotting spots of the world, or from your own backyard. A planetarium for air traffic, drawn on real terrain, skylines and weather.</p>
+    <div class="tagline">A planetarium for plane spotting.</div>
+    <p class="lede">Most flight trackers show a map from above. Skyarium puts your feet back on the ground. Watch live flights cross the horizon from your own backyard or the great spotting places of the world, each plane drawn in the paint it flies today.</p>
     <div class="ctas">
       <!-- Apple's own badge, unaltered (Apple Marketing Tools); it links to the listing. -->
       <a class="store" href="https://apps.apple.com/us/app/skyarium/id6826740904"><img src="assets/app-store-badge.svg" alt="Download on the App Store" width="162" height="54"></a>
@@ -207,8 +207,8 @@
     </div>
     <!-- The promo: real flights, recorded in the app. Autoplays muted, with a button for the music. -->
     <div class="phone">
-      <video id="promo" src="assets/promo.mp4" poster="assets/promo-poster.jpg" width="720" height="1476"
-             autoplay muted loop playsinline preload="auto" aria-label="Skyarium: following real planes onto the runway at LAX and Dallas, the moon over Las Vegas, light trails at night"></video>
+      <video id="promo" src="assets/promo.mp4" poster="assets/promo-poster.jpg" width="720" height="1560"
+             autoplay muted loop playsinline preload="auto" aria-label="Skyarium: a light in the dusk sky tapped to become a Delta jet in its paint, a jet low over the palms at LAX, the plane's drawing turned in 3D, Southwest's Lone Star One, and a jet crossing the full moon over Manhattan"></video>
       <button class="sound off" id="sound" type="button" aria-label="Turn sound on" aria-pressed="false">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M11 5 6 9H3v6h3l5 4V5z"/><path id="wave" d="M16 9.5a4 4 0 0 1 0 5" opacity="0"/><path id="cross" d="m16 9 5 6m0-6-5 6"/>

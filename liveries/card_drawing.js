@@ -80,6 +80,19 @@
     return shapes.get(id);
   }
 
+  /**
+   * The measured shape a scheme was drawn on (its `drawnOn` type: the shape of that id, else one serving it), so the
+   * renderer fits it to another type by their landmarks (Open Liveries' docs/COORDINATES.md, Landmarks).
+   */
+  function drawnOnShape(scheme) {
+    const type = scheme.drawnOn;
+    if (!type) return undefined;
+    // The shape whose id is the designator (B763, the 767-300F, before B763-passenger), else the first serving it.
+    const { shapes: all, types } = root.CARD_DATA.shapes;
+    const id = all[type] ? type : (types?.[type] || []).find((k) => all[k]);
+    return id ? shapeFor(id) : undefined;
+  }
+
   /** The fin's outline in the left view's pixels (leading edge up, trailing edge down), for fitting a logo on it. */
   function finOutline(shape) {
     const projection = OL.sideProjection(shape);
@@ -265,19 +278,19 @@
         fit: true,
       });
     }
-    return { scheme, shape };
+    return { scheme, shape, drawnOn: drawnOnShape(scheme) };
   }
 
   /** One scheme on one shape (`prepare`'s request), from one side ('left', 'right' or 'below'), as SVG. */
   function svg(request) {
     const prepared = prepare(request);
     if (!prepared) return undefined;
-    const { scheme, shape } = prepared;
+    const { scheme, shape, drawnOn } = prepared;
     const side = request.side || 'left';
     const painted = OL.schemeOn(scheme, shape);
     const logo = painter(painted, shape, side === 'right' ? 'right' : 'left');
-    if (side === 'below') return OL.renderBelow(scheme, { shape, logo, idPrefix: 'card' });
-    return OL.renderSide(scheme, { shape, side, logo, idPrefix: 'card' });
+    if (side === 'below') return OL.renderBelow(scheme, { shape, drawnOn, logo, idPrefix: 'card' });
+    return OL.renderSide(scheme, { shape, side, drawnOn, logo, idPrefix: 'card' });
   }
 
   /** The same as a PNG data URL `width` pixels wide (in a page: drawn through an image and a canvas). */

@@ -1,0 +1,36 @@
+# Build skyarium.app/nightlights/v1/: the Horizon's city lights, from NASA's Black Marble 2016 night lights (VIIRS,
+# public domain, 500 m cells) in 1° tiles, so the app never asks NASA itself. The map doesn't change, so this runs
+# by hand (Actions › Night lights › Run workflow), not on a schedule; again only if NASA publishes a newer one.
+# Source of truth: the Skyarium project's scripts/site/nightlights.yml and tools/build_night_lights.py (copied here
+# by publish-site.sh).
+name: Night lights
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+  pages: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch NASA's eight grayscale tiles and build ours
+        run: |
+          pip install -q pillow numpy
+          mkdir -p "$RUNNER_TEMP/bm"
+          for t in A1 A2 B1 B2 C1 C2 D1 D2; do
+            curl -fsSL -A "Skyarium (+https://skyarium.app)" -o "$RUNNER_TEMP/bm/${t}_gray.tif" \
+              "https://assets.science.nasa.gov/content/dam/science/esd/eo/images/imagerecords/144000/144897/BlackMarble_2016_${t}_geo_gray.tif"
+          done
+          python3 -I tools/build_night_lights.py "$RUNNER_TEMP/bm" nightlights
+          # A broken download makes few tiles: keep what's there.
+          test "$(ls nightlights/v1 | wc -l)" -gt 10000
+      - name: Commit and publish if changed
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git add -A nightlights
+          if git diff --cached --quiet -- nightlights; then echo "Unchanged."; exit 0; fi
+          git -c user.name="Skyarium night lights" -c user.email="actions@users.noreply.github.com" commit -qm "Night-light tiles"
+          git push -q
+          gh api -X POST "repos/${{ github.repository }}/pages/builds" > /dev/null

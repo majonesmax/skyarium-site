@@ -17,8 +17,25 @@
       for (let i = 0; i + 1 < flat.length; i += 2) out.push([flat[i] / 100, flat[i + 1] / 100]);
       return out;
     };
-    const surface = (s) => ({ leading: line(s.le), trailing: line(s.te), z: line(s.z) });
-    const windows = (w) => w && { z: [m(w.z[0]), m(w.z[1])], width: m(w.w), x: w.x.map(m) };
+    // A wing's `fair`: its flap track fairings, [y, front, back, depth, width] each.
+    const surface = (s) => ({
+      leading: line(s.le),
+      trailing: line(s.te),
+      z: line(s.z),
+      ...(s.fair
+        ? {
+            fairings: s.fair.map(([y, x0, x1, depth, width]) => ({
+              y: m(y),
+              x: [m(x0), m(x1)],
+              depth: m(depth),
+              ...(width ? { width: m(width) } : {}),
+            })),
+          }
+        : {}),
+    });
+    // A freighter's `wb`: where its passenger version's first and last window would be.
+    const windows = (w) =>
+      w && { z: [m(w.z[0]), m(w.z[1])], width: m(w.w), x: w.x.map(m), ...(w.wb ? { wouldBe: w.wb.map(m) } : {}) };
     const kinds = { d: 'door', e: 'exit', c: 'cargo' };
     const shape = {
       id,

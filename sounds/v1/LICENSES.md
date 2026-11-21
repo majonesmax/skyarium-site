@@ -1,0 +1,60 @@
+# Bird recordings
+
+Short cuts of these recordings, from Wikimedia Commons, under each one's license. Cuts of CC BY-SA recordings are shared under the same license.
+
+- American Crow: [American Crow.ogg](https://commons.wikimedia.org/wiki/File:American_Crow.ogg), G McGrane, Public domain
+- American Crow: [Corvus brachyrhynchos - American Crow - XC69128.ogg](https://commons.wikimedia.org/wiki/File:Corvus_brachyrhynchos_-_American_Crow_-_XC69128.ogg), Jonathon Jongsma, CC BY-SA 3.0
+- American Robin: [American Robin (Turdus migratorius) - Guelph-Eramosa, Ontario 2020-05-20.mp3](https://commons.wikimedia.org/wiki/File:American_Robin_(Turdus_migratorius)_-_Guelph-Eramosa,_Ontario_2020-05-20.mp3), Ryan Hodnett, CC BY-SA 4.0
+- American Robin: [Turdus migratorius - American Robin - XC107523.ogg](https://commons.wikimedia.org/wiki/File:Turdus_migratorius_-_American_Robin_-_XC107523.ogg), Jonathon Jongsma, CC BY-SA 3.0
+- American Robin: [Turdus migratorius - American Robin - XC75498.ogg](https://commons.wikimedia.org/wiki/File:Turdus_migratorius_-_American_Robin_-_XC75498.ogg), Jonathon Jongsma, CC BY-SA 3.0
+- Barred Owl: [Barred Owl (Strix varia) (W1CDR0000351 BD27).ogg](https://commons.wikimedia.org/wiki/File:Barred_Owl_(Strix_varia)_(W1CDR0000351_BD27).ogg), Tom Cosburn (recordist); The British Library Board, CC BY 4.0
+- Barred Owl: [Barred Owl, Yellowstone National Park.oga](https://commons.wikimedia.org/wiki/File:Barred_Owl,_Yellowstone_National_Park.oga), National Park Service, Public domain
+- Barred Owl: [Strix varia - Northern Barred Owl XC375201.mp3](https://commons.wikimedia.org/wiki/File:Strix_varia_-_Northern_Barred_Owl_XC375201.mp3), Matthias Sirch, CC BY-SA 4.0
+- Black Phoebe: [Sayornis nigricans semiater - Black Phoebe - XC109602.ogg](https://commons.wikimedia.org/wiki/File:Sayornis_nigricans_semiater_-_Black_Phoebe_-_XC109602.ogg), Jonathon Jongsma, CC BY-SA 3.0
+- Black Phoebe: [Sayornis nigricans semiater - Black Phoebe - XC109603.ogg](https://commons.wikimedia.org/wiki/File:Sayornis_nigricans_semiater_-_Black_Phoebe_-_XC109603.ogg), Jonathon Jongsma, CC BY-SA 3.0
+- Black-capped Chickadee: [Poecile atricapillus - Black-capped Chickadee - XC70185.ogg](https://commons.wikimedia.org/wiki/File:Poecile_atricapillus_-_Black-capped_Chickadee_-_XC70185.ogg), Jonathon Jongsma, CC BY-SA 3.0
+- Black-capped Chickadee: [Poecile atricapillus - Black-capped Chickadee - XC86760.ogg](https://commons.wikimedia.org/wiki/File:Poecile_atricapillus_-_Black-capped_Chickadee_-_XC86760.ogg), Jonathon Jongsma, CC BY-SA 3.0
+- Blue Jay: [Blue Jay.ogg](https://commons.wikimedia.org/wiki/File:Blue_Jay.ogg), G. McGrane, Public domain
+- Blue Jay: [Cyanocitta cristata - Blue Jay - XC81291.ogg](https://commons.wikimedia.org/wiki/File:Cyanocitta_cristata_-_Blue_Jay_-_XC81291.ogg), Jonathon Jongsma, CC BY-SA 3.0
+- Blue Jay: [Cyanocitta cristata - Blue Jay - XC86756.ogg](https://commons.wikimedia.org/wiki/File:Cyanocitta_cristata_-_Blue_Jay_-_XC86756.ogg), Jonathon Jongsma, CC BY-SA 3.0
+- California Scrub-Jay: [Aphelocoma californica - California Scrub Jay - XC110976.ogg](https://commons.wikimedia.org/wiki/File:Aphelocoma_californica_-_California_Scrub_Jay_-_XC110976.ogg), Jonathon Jongsma, CC BY-SA 3.0
+- California Scrub-Jay: [Aphelocoma californica Sound 2014-08-12.ogg](https://commons.wikimedia.org/wiki/File:Aphelocoma_californica_Sound_2014-08-12.ogg), Frank Schulenburg, CC0
+- California Towhee: [Melozone crissalis - California Towhee - XC109663.ogg](https://commons.wikimedia.org/wiki/File:Melozone_crissalis_-_California_Towhee_-_XC109663.ogg), Jonathon Jongsma, CC BY-SA 3.0
+- California Towhee: [Melozone crissalis - California Towhee - XC110260.ogg](https://commons.wikimedia.org/wiki/File:Melozone_crissalis_-_California_Towhee_-_XC110260.ogg), Jonathon Jongsma, CC BY-SA 3.0
+- Common Loon: [Common loon tremolo.ogg](https://commons.wikimedia.org/wiki/File:Common_loon_tremolo.ogg), Darwin Long, CC BY-SA 2.5
+- Common Loon: [Common loon yodels.ogg](https://commons.wikimedia.org/wiki/File:Common_loon_yodels.ogg), Darwin Long, Peter Otto, CC BY-SA 2.5
+- Common Loon: [Yellowstone sound library - Common Loon - 001.mp3](https://commons.wikimedia.org/wiki/File:Yellowstone_sound_library_-_Common_Loon_-_001.mp3), NPS &amp; MSU Acoustic Atlas/Jennifer Jerrett, Public domain
+- Dark-eyed Junco: [Dark-eyed Junco.ogg](https://commons.wikimedia.org/wiki/File:Dark-eyed_Junco.ogg), G. McGrane, Public domain
+- Dark-eyed Junco: [Junco hyemalis - Dark-eyed Junco XC142588.ogg](https://commons.wikimedia.org/wiki/File:Junco_hyemalis_-_Dark-eyed_Junco_XC142588.ogg), Jonathon Jongsma, CC BY-SA 3.0
+- Dark-eyed Junco: [Junco hyemalis - Dark-eyed Junco XC254480.mp3](https://commons.wikimedia.org/wiki/File:Junco_hyemalis_-_Dark-eyed_Junco_XC254480.mp3), Jonathon Jongsma, CC BY-SA 4.0
+- Downy Woodpecker: [Picoides pubescens - Downy Woodpecker XC118417.ogg](https://commons.wikimedia.org/wiki/File:Picoides_pubescens_-_Downy_Woodpecker_XC118417.ogg), Jonathon Jongsma, CC BY-SA 3.0
+- Downy Woodpecker: [Picoides pubescens drumming Roberts Bird Sanctuary, Minnesota.ogg](https://commons.wikimedia.org/wiki/File:Picoides_pubescens_drumming_Roberts_Bird_Sanctuary,_Minnesota.ogg), Jonathon Jongsma, CC BY-SA 3.0
+- Gray Catbird: [Dumetella carolinensis - Grey Catbird - XC81292.ogg](https://commons.wikimedia.org/wiki/File:Dumetella_carolinensis_-_Grey_Catbird_-_XC81292.ogg), Jonathon Jongsma, CC BY-SA 3.0
+- Gray Catbird: [Dumetella carolinensis - Grey Catbird XC134153.ogg](https://commons.wikimedia.org/wiki/File:Dumetella_carolinensis_-_Grey_Catbird_XC134153.ogg), Jonathon Jongsma, CC BY-SA 3.0
+- Great Horned Owl: [Bubo virginianus - Great Horned Owl XC428421.mp3](https://commons.wikimedia.org/wiki/File:Bubo_virginianus_-_Great_Horned_Owl_XC428421.mp3), Jonathon Jongsma, CC BY-SA 4.0
+- Great Horned Owl: [Bubo virginianus - Great Horned Owl XC450919.mp3](https://commons.wikimedia.org/wiki/File:Bubo_virginianus_-_Great_Horned_Owl_XC450919.mp3), Michael &amp; Katie LaTour, CC BY-SA 4.0
+- House Finch: [Haemorhous mexicanus - House Finch XC124078.ogg](https://commons.wikimedia.org/wiki/File:Haemorhous_mexicanus_-_House_Finch_XC124078.ogg), Jonathon Jongsma, CC BY-SA 3.0
+- House Finch: [Haemorhous mexicanus - House Finch XC99546.ogg](https://commons.wikimedia.org/wiki/File:Haemorhous_mexicanus_-_House_Finch_XC99546.ogg), Jonathon Jongsma, CC BY-SA 3.0
+- Laughing Gull: [Cape May Shorebirds (distant).ogg](https://commons.wikimedia.org/wiki/File:Cape_May_Shorebirds_(distant).ogg), U.S. Fish and Wildlife Service, Public domain
+- Laughing Gull: [Cape May Shorebirds closer.ogg](https://commons.wikimedia.org/wiki/File:Cape_May_Shorebirds_closer.ogg), U.S. Fish and Wildlife Service, Public domain
+- Laughing Gull: [Larus atricilla.ogg](https://commons.wikimedia.org/wiki/File:Larus_atricilla.ogg), Tony Phillips, CC BY 3.0
+- Mourning Dove: [Zenaida macroura vocalizations - pone.0027052.s009.oga](https://commons.wikimedia.org/wiki/File:Zenaida_macroura_vocalizations_-_pone.0027052.s009.oga), Francis C, Ortega C, Cruz A, CC BY 2.5
+- Northern Cardinal: [Cardinalis cardinalis cardinalis - Northern Cardinal - XC75501.ogg](https://commons.wikimedia.org/wiki/File:Cardinalis_cardinalis_cardinalis_-_Northern_Cardinal_-_XC75501.ogg), Jonathon Jongsma, CC BY-SA 3.0
+- Northern Cardinal: [Northern Cardinal.ogg](https://commons.wikimedia.org/wiki/File:Northern_Cardinal.ogg), G. McGrane, Public domain
+- Northern Mockingbird: [Mimus polyglottos Northern Mockingbird.ogg](https://commons.wikimedia.org/wiki/File:Mimus_polyglottos_Northern_Mockingbird.ogg), David Illig, CC BY-SA 3.0
+- Northern Mockingbird: [Mimus polyglottos.ogg](https://commons.wikimedia.org/wiki/File:Mimus_polyglottos.ogg), ZooFari, CC BY-SA 3.0
+- Red-winged Blackbird: [Agelaius phoeniceus - Red-winged Blackbird - XC75495.ogg](https://commons.wikimedia.org/wiki/File:Agelaius_phoeniceus_-_Red-winged_Blackbird_-_XC75495.ogg), Jonathon Jongsma, CC BY-SA 3.0
+- Red-winged Blackbird: [Agelaius phoeniceus - Red-winged Blackbird - XC75497.ogg](https://commons.wikimedia.org/wiki/File:Agelaius_phoeniceus_-_Red-winged_Blackbird_-_XC75497.ogg), Jonathon Jongsma, CC BY-SA 3.0
+- Red-winged Blackbird: [Red-winged Blackbird (Agelaius phoeniceus).ogg](https://commons.wikimedia.org/wiki/File:Red-winged_Blackbird_(Agelaius_phoeniceus).ogg), U.S. Fish and Wildlife Service, Public domain
+- Red-winged Blackbird: [Red-winged Blackbird.ogg](https://commons.wikimedia.org/wiki/File:Red-winged_Blackbird.ogg), G. McGrane, Public domain
+- Song Sparrow: [Melospiza melodia - Song Sparrow - XC78060.ogg](https://commons.wikimedia.org/wiki/File:Melospiza_melodia_-_Song_Sparrow_-_XC78060.ogg), Jonathon Jongsma, CC BY-SA 3.0
+- Song Sparrow: [Melospiza melodia - Song Sparrow XC142621.ogg](https://commons.wikimedia.org/wiki/File:Melospiza_melodia_-_Song_Sparrow_XC142621.ogg), Jonathon Jongsma, CC BY-SA 3.0
+- Spotted Towhee: [Pipilo maculatus - Spotted Towhee - XC104527.ogg](https://commons.wikimedia.org/wiki/File:Pipilo_maculatus_-_Spotted_Towhee_-_XC104527.ogg), Jonathon Jongsma, CC BY-SA 3.0
+- Steller's Jay: [Cyanocitta stelleri - Steller's Jay - XC109653.ogg](https://commons.wikimedia.org/wiki/File:Cyanocitta_stelleri_-_Steller%27s_Jay_-_XC109653.ogg), Jonathon Jongsma, CC BY-SA 3.0
+- Steller's Jay: [Cyanocitta stelleri - Steller's Jay - XC110261.ogg](https://commons.wikimedia.org/wiki/File:Cyanocitta_stelleri_-_Steller%27s_Jay_-_XC110261.ogg), Jonathon Jongsma, CC BY-SA 3.0
+- Steller's Jay: [Steller's Jay - National Park Service.ogg](https://commons.wikimedia.org/wiki/File:Steller%27s_Jay_-_National_Park_Service.ogg), National Park Service, Public domain
+- Swainson's Thrush: [Catharus ustulatus - Swainson's Thrush XC142624.ogg](https://commons.wikimedia.org/wiki/File:Catharus_ustulatus_-_Swainson%27s_Thrush_XC142624.ogg), Jonathon Jongsma, CC BY-SA 3.0
+- Swainson's Thrush: [Catharus ustulatus - Swainson's Thrush XC613535.mp3](https://commons.wikimedia.org/wiki/File:Catharus_ustulatus_-_Swainson%27s_Thrush_XC613535.mp3), Doug Hynes, CC BY-SA 4.0
+- Western Gull: [Western Gull Golden Gate National Recreation Area.ogg](https://commons.wikimedia.org/wiki/File:Western_Gull_Golden_Gate_National_Recreation_Area.ogg), National Park Service, Public domain
+- Wrentit: [Chamaea fasciata - Wrentit - XC109853.ogg](https://commons.wikimedia.org/wiki/File:Chamaea_fasciata_-_Wrentit_-_XC109853.ogg), Jonathon Jongsma, CC BY-SA 3.0
+- Wrentit: [Chamaea fasciata - Wrentit - XC109854.ogg](https://commons.wikimedia.org/wiki/File:Chamaea_fasciata_-_Wrentit_-_XC109854.ogg), Jonathon Jongsma, CC BY-SA 3.0

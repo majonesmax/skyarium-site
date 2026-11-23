@@ -1,0 +1,587 @@
+{
+ "about": "Ghost flights' route banks (docs/GHOSTS.md, D297): real nonstop city pairs each airline flew in its era, from its own timetables. Routes are facts; the timetables are read, not copied. Times aren't used: ghosts fly the quiet hours. Airport positions from OurAirports (public domain), kept here so the site's Action needs nothing else.",
+ "airlines": {
+  "RC1979": {
+   "name": "Republic Airlines",
+   "scheme": "RC1979/herman",
+   "era": "1984",
+   "sources": [
+    {
+     "title": "Republic Airlines Quick Reference Schedule, Minneapolis/St. Paul, effective June 1, 1984",
+     "url": "https://northwestairlineshistory.org/wp-content/uploads/2022/03/REP-schedule-1984-06-01-MSP.pdf",
+     "via": "Northwest Airlines History Center",
+     "note": "Nonstop jet flights (italic flight numbers; plain ones were Convair 580s) from and to MSP."
+    }
+   ],
+   "routes": [
+    [
+     "MSP",
+     "ORD"
+    ],
+    [
+     "MSP",
+     "DTW"
+    ],
+    [
+     "MSP",
+     "MEM"
+    ],
+    [
+     "MSP",
+     "MKE"
+    ],
+    [
+     "MSP",
+     "MSN"
+    ],
+    [
+     "MSP",
+     "DLH"
+    ],
+    [
+     "MSP",
+     "FAR"
+    ],
+    [
+     "MSP",
+     "GFK"
+    ],
+    [
+     "MSP",
+     "BIS"
+    ],
+    [
+     "MSP",
+     "EAU"
+    ],
+    [
+     "MSP",
+     "GRB"
+    ],
+    [
+     "MSP",
+     "CWA"
+    ],
+    [
+     "MSP",
+     "RST"
+    ],
+    [
+     "MSP",
+     "FSD"
+    ],
+    [
+     "MSP",
+     "GRR"
+    ],
+    [
+     "MSP",
+     "OMA"
+    ],
+    [
+     "MSP",
+     "STL"
+    ],
+    [
+     "MSP",
+     "IND"
+    ],
+    [
+     "MSP",
+     "DEN"
+    ],
+    [
+     "MSP",
+     "ATL"
+    ],
+    [
+     "MSP",
+     "BOS"
+    ],
+    [
+     "MSP",
+     "LGA"
+    ],
+    [
+     "MSP",
+     "DCA"
+    ],
+    [
+     "MSP",
+     "LAS"
+    ],
+    [
+     "MSP",
+     "PHX"
+    ],
+    [
+     "MSP",
+     "SLC"
+    ],
+    [
+     "MSP",
+     "LAX"
+    ],
+    [
+     "MSP",
+     "SFO"
+    ],
+    [
+     "MSP",
+     "SEA"
+    ],
+    [
+     "MSP",
+     "PDX"
+    ]
+   ],
+   "note": "The timetable's Wausau-Stevens Point is CWA (Central Wisconsin).",
+   "fleet": {
+    "MD82": {
+     "registrations": [
+      "N301RC",
+      "N302RC",
+      "N303RC",
+      "N304RC",
+      "N305RC",
+      "N306RC",
+      "N307RC",
+      "N308RC"
+     ],
+     "note": "Republic's eight MD-82s, all in Herman until late 1984 (N305RC and N307RC on Commons). Its DC-9s flew most of these routes; until a DC-9 shape exists, ghosts fly the MD-82s on all of them."
+    }
+   }
+  },
+  "NWA": {
+   "name": "Northwest Orient Airlines",
+   "scheme": "NWA/orient-red-tail",
+   "era": "1985",
+   "sources": [
+    {
+     "title": "Northwest Orient system timetable, effective October 27, 1985",
+     "url": "https://northwestairlineshistory.org/wp-content/uploads/2025/09/NW-schedule-1985-10-27.pdf",
+     "via": "Northwest Airlines History Center",
+     "note": "Nonstop flights from MSP numbered under 1000 (1000s were Northwest Airlink commuters)."
+    }
+   ],
+   "routes": [
+    [
+     "MSP",
+     "ORD"
+    ],
+    [
+     "MSP",
+     "MDW"
+    ],
+    [
+     "MSP",
+     "DTW"
+    ],
+    [
+     "MSP",
+     "MKE"
+    ],
+    [
+     "MSP",
+     "MSN"
+    ],
+    [
+     "MSP",
+     "FAR"
+    ],
+    [
+     "MSP",
+     "GFK"
+    ],
+    [
+     "MSP",
+     "BIS"
+    ],
+    [
+     "MSP",
+     "BIL"
+    ],
+    [
+     "MSP",
+     "GRR"
+    ],
+    [
+     "MSP",
+     "MCI"
+    ],
+    [
+     "MSP",
+     "DEN"
+    ],
+    [
+     "MSP",
+     "DFW"
+    ],
+    [
+     "MSP",
+     "ATL"
+    ],
+    [
+     "MSP",
+     "CLE"
+    ],
+    [
+     "MSP",
+     "BOS"
+    ],
+    [
+     "MSP",
+     "EWR"
+    ],
+    [
+     "MSP",
+     "LGA"
+    ],
+    [
+     "MSP",
+     "PHL"
+    ],
+    [
+     "MSP",
+     "DCA"
+    ],
+    [
+     "MSP",
+     "BWI"
+    ],
+    [
+     "MSP",
+     "PHX"
+    ],
+    [
+     "MSP",
+     "LAX"
+    ],
+    [
+     "MSP",
+     "SFO"
+    ],
+    [
+     "MSP",
+     "SEA"
+    ],
+    [
+     "MSP",
+     "PDX"
+    ],
+    [
+     "MSP",
+     "GEG"
+    ],
+    [
+     "MSP",
+     "SAN"
+    ],
+    [
+     "MSP",
+     "TPA"
+    ],
+    [
+     "MSP",
+     "YWG"
+    ],
+    [
+     "MSP",
+     "YEG"
+    ]
+   ],
+   "fleet": {
+    "B722": {
+     "registrations": [
+      "N201US",
+      "N202US",
+      "N203US",
+      "N278US",
+      "N281US",
+      "N286US",
+      "N288US",
+      "N291US",
+      "N292US",
+      "N293US",
+      "N296US",
+      "N297US"
+     ],
+     "note": "Northwest's 727-251s with photos on Commons (Category:Boeing 727-251); the workhorse on its short and medium routes."
+    },
+    "B752": {
+     "registrations": [
+      "N501US",
+      "N502US",
+      "N503US",
+      "N504US",
+      "N505US",
+      "N506US",
+      "N507US",
+      "N508US",
+      "N509US",
+      "N510US",
+      "N511US",
+      "N512US",
+      "N513US",
+      "N514US"
+     ],
+     "note": "757-251s, delivered 1985-86 (N501US, N504US, N505US, N512US, N514US on Commons in the red tail). Only on the routes the October 1985 timetable shows them on.",
+     "routes": [
+      [
+       "MSP",
+       "LAX"
+      ],
+      [
+       "MSP",
+       "SFO"
+      ],
+      [
+       "MSP",
+       "BOS"
+      ],
+      [
+       "MSP",
+       "EWR"
+      ],
+      [
+       "MSP",
+       "LGA"
+      ],
+      [
+       "MSP",
+       "BWI"
+      ],
+      [
+       "MSP",
+       "DCA"
+      ]
+     ]
+    }
+   }
+  }
+ },
+ "timeZones": {
+  "ATL": "America/New_York",
+  "BIL": "America/Denver",
+  "BIS": "America/Chicago",
+  "BOS": "America/New_York",
+  "BWI": "America/New_York",
+  "CLE": "America/New_York",
+  "CWA": "America/Chicago",
+  "DCA": "America/New_York",
+  "DEN": "America/Denver",
+  "DFW": "America/Chicago",
+  "DLH": "America/Chicago",
+  "DTW": "America/Detroit",
+  "EAU": "America/Chicago",
+  "EWR": "America/New_York",
+  "FAR": "America/Chicago",
+  "FSD": "America/Chicago",
+  "GEG": "America/Los_Angeles",
+  "GFK": "America/Chicago",
+  "GRB": "America/Chicago",
+  "GRR": "America/Detroit",
+  "IND": "America/Indiana/Indianapolis",
+  "LAS": "America/Los_Angeles",
+  "LAX": "America/Los_Angeles",
+  "LGA": "America/New_York",
+  "MCI": "America/Chicago",
+  "MDW": "America/Chicago",
+  "MEM": "America/Chicago",
+  "MKE": "America/Chicago",
+  "MSN": "America/Chicago",
+  "MSP": "America/Chicago",
+  "OMA": "America/Chicago",
+  "ORD": "America/Chicago",
+  "PDX": "America/Los_Angeles",
+  "PHL": "America/New_York",
+  "PHX": "America/Phoenix",
+  "RST": "America/Chicago",
+  "SAN": "America/Los_Angeles",
+  "SEA": "America/Los_Angeles",
+  "SFO": "America/Los_Angeles",
+  "SLC": "America/Denver",
+  "STL": "America/Chicago",
+  "TPA": "America/New_York",
+  "YEG": "America/Edmonton",
+  "YWG": "America/Winnipeg"
+ },
+ "airports": {
+  "ATL": [
+   33.6367,
+   -84.4281
+  ],
+  "BIL": [
+   45.8089,
+   -108.5412
+  ],
+  "BIS": [
+   46.7727,
+   -100.7469
+  ],
+  "BOS": [
+   42.362,
+   -71.0079
+  ],
+  "BWI": [
+   39.1754,
+   -76.6683
+  ],
+  "CLE": [
+   41.4117,
+   -81.8498
+  ],
+  "CWA": [
+   44.7775,
+   -89.6702
+  ],
+  "DCA": [
+   38.8521,
+   -77.0377
+  ],
+  "DEN": [
+   39.86,
+   -104.6738
+  ],
+  "DFW": [
+   32.8968,
+   -97.038
+  ],
+  "DLH": [
+   46.8419,
+   -92.1988
+  ],
+  "DTW": [
+   42.2138,
+   -83.3538
+  ],
+  "EAU": [
+   44.8658,
+   -91.4843
+  ],
+  "EWR": [
+   40.6894,
+   -74.1706
+  ],
+  "FAR": [
+   46.9207,
+   -96.8158
+  ],
+  "FSD": [
+   43.5855,
+   -96.7412
+  ],
+  "GEG": [
+   47.6199,
+   -117.534
+  ],
+  "GFK": [
+   47.9493,
+   -97.1761
+  ],
+  "GRB": [
+   44.4835,
+   -88.1308
+  ],
+  "GRR": [
+   42.8808,
+   -85.5228
+  ],
+  "IND": [
+   39.7173,
+   -86.2944
+  ],
+  "LAS": [
+   36.0834,
+   -115.1518
+  ],
+  "LAX": [
+   33.9425,
+   -118.408
+  ],
+  "LGA": [
+   40.7772,
+   -73.8726
+  ],
+  "MCI": [
+   39.3017,
+   -94.7139
+  ],
+  "MDW": [
+   41.786,
+   -87.7524
+  ],
+  "MEM": [
+   35.0438,
+   -89.9763
+  ],
+  "MKE": [
+   42.9472,
+   -87.8966
+  ],
+  "MSN": [
+   43.1399,
+   -89.3375
+  ],
+  "MSP": [
+   44.8801,
+   -93.2217
+  ],
+  "OMA": [
+   41.3032,
+   -95.8941
+  ],
+  "ORD": [
+   41.9786,
+   -87.9048
+  ],
+  "PDX": [
+   45.5887,
+   -122.598
+  ],
+  "PHL": [
+   39.8719,
+   -75.2411
+  ],
+  "PHX": [
+   33.4353,
+   -112.0059
+  ],
+  "RST": [
+   43.9083,
+   -92.5
+  ],
+  "SAN": [
+   32.7336,
+   -117.19
+  ],
+  "SEA": [
+   47.4479,
+   -122.3103
+  ],
+  "SFO": [
+   37.6198,
+   -122.3748
+  ],
+  "SLC": [
+   40.7889,
+   -111.9799
+  ],
+  "STL": [
+   38.7487,
+   -90.37
+  ],
+  "TPA": [
+   27.9755,
+   -82.5332
+  ],
+  "YEG": [
+   53.3097,
+   -113.58
+  ],
+  "YWG": [
+   49.91,
+   -97.2399
+  ]
+ }
+}

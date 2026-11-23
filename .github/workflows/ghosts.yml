@@ -1,0 +1,32 @@
+# Build skyarium.app/ghosts/v1/: the ghost flights' schedules for tonight and the next two nights (docs/GHOSTS.md,
+# D297). A night is built from its date alone, so every phone gets the same ghosts. Runs at midday Minneapolis time,
+# long before the night's first ghost. Source of truth: the Skyarium project's scripts/site/ghosts.yml and
+# tools/ghosts/ (copied here by publish-site.sh).
+name: Ghosts
+on:
+  schedule:
+    - cron: "0 18 * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+  pages: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        run: python3 tools/ghosts/build_ghosts.py . --nights 3
+      - name: Commit and publish if changed
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git add -A ghosts
+          if git diff --cached --quiet -- ghosts; then
+            echo "Ghosts unchanged."; exit 0
+          fi
+          git -c user.name="Skyarium ghosts" -c user.email="actions@users.noreply.github.com" commit -qm "Ghost flights for the next nights"
+          git pull -q --rebase
+          git push -q
+          # Pushes made with this token don't start a Pages build on their own.
+          gh api -X POST "repos/${{ github.repository }}/pages/builds" > /dev/null

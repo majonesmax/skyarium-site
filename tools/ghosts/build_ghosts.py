@@ -32,6 +32,11 @@ QUIET_FROM, QUIET_TO = 0, 5 * 60  # minutes after local midnight: departures fro
 PER_AIRLINE = 10
 TURN_MIN = 35  # on the ground between a leg and the way back
 SPEED_KT = {"MD82": 430, "B722": 455, "B733": 430, "B752": 460, "DC10": 475}
+# The East Coast rule (D300): from this night, each airline with routes out of Eastern time flies one leg leaving one
+# within EAST_WITHIN minutes after midnight Eastern, the country's first midnight, so nobody has to wait up all night.
+EAST_FROM = dt.date(2026, 11, 25)
+EAST_WITHIN = 30
+EASTERN = ZoneInfo("America/New_York")
 
 
 def nm_between(a: tuple[float, float], b: tuple[float, float]) -> float:
@@ -93,6 +98,10 @@ def build_night(night: dt.date, bank: dict, airports: dict) -> dict:
         routes = nightly + [r for r in routes if r not in airline.get("nightly", [])]
         used_tails: set[str] = set()
         legs = []
+        if night >= EAST_FROM:
+            legs += east_leg(airline, routes, zones, airports, used_tails, day, rng)
+            # Not flown again by another tail that night.
+            routes = [r for r in routes if not legs or set(r) != {legs[0][2], legs[0][3]}]
         for route in routes:
             if len(legs) >= PER_AIRLINE:
                 break
@@ -138,6 +147,31 @@ def build_night(night: dt.date, bank: dict, airports: dict) -> dict:
             })
     flights.sort(key=lambda f: f["depart"])
     return {"night": night.isoformat(), "version": 1, "flights": flights}
+
+
+def east_leg(airline: dict, routes: list, zones: dict, airports: dict, used_tails: set, day: dt.date, rng: random.Random) -> list:
+    """One leg leaving an airport on Eastern time within EAST_WITHIN minutes after midnight there, landing by 5 a.m.
+    where it lands: the first route in the night's shuffle that fits, either way round. None when the airline has no
+    such route."""
+    midnight = dt.datetime.combine(day, dt.time(0), EASTERN)
+    for route in routes:
+        for a, b in (route, route[::-1]):
+            if zones[a].utcoffset(midnight.replace(tzinfo=None)) != EASTERN.utcoffset(midnight.replace(tzinfo=None)):
+                continue
+            kind = rng.choice(types_for(airline, route))
+            tails = [t for t in airline["fleet"][kind]["registrations"] if t not in used_tails]
+            nm = nm_between(airports[a], airports[b])
+            block = block_minutes(nm, SPEED_KT[kind])
+            latest = dt.datetime.combine(day, dt.time(0), zones[b]) + dt.timedelta(minutes=QUIET_TO - block)
+            if not tails or latest < midnight:
+                continue
+            depart = midnight + dt.timedelta(minutes=5 * rng.randrange(EAST_WITHIN // 5 + 1))
+            if depart > latest:
+                depart = midnight
+            tail = rng.choice(tails)
+            used_tails.add(tail)
+            return [(tail, kind, a, b, depart, block, nm)]
+    return []
 
 
 def utc(t: dt.datetime) -> str:

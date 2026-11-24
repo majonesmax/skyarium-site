@@ -358,13 +358,178 @@
      ]
     }
    }
+  },
+  "WA1926": {
+   "name": "Western Airlines",
+   "scheme": "WA1926/silver-1980s",
+   "era": "1986",
+   "sources": [
+    {
+     "title": "Western Airlines route map, effective September 4, 1985",
+     "url": "https://www.airtimes.com/cgat/usc/western/detail/mapwa850904.jpg",
+     "via": "airtimes.com",
+     "note": "Its hubs at Salt Lake City and Los Angeles, Palm Springs as seasonal service; the Southern California routes read off it."
+    },
+    {
+     "title": "Western Airlines route map, April 30, 1972",
+     "url": "https://www.airtimes.com/cgat/usc/western/detail/map720430.jpg",
+     "via": "airtimes.com",
+     "note": "Minneapolis/St. Paul to Southern California."
+    },
+    {
+     "title": "The user's own trip",
+     "note": "Minneapolis/St. Paul to Palm Springs on a Western DC-10, about 1986, with family (the user, 2026-11-23). No timetable found yet that shows it; flown every night for that reason."
+    }
+   ],
+   "routes": [
+    [
+     "MSP",
+     "PSP"
+    ],
+    [
+     "MSP",
+     "SLC"
+    ],
+    [
+     "MSP",
+     "LAX"
+    ],
+    [
+     "PSP",
+     "SLC"
+    ],
+    [
+     "LAX",
+     "SLC"
+    ],
+    [
+     "LAX",
+     "SFO"
+    ],
+    [
+     "LAX",
+     "OAK"
+    ],
+    [
+     "LAX",
+     "SJC"
+    ],
+    [
+     "LAX",
+     "SMF"
+    ],
+    [
+     "LAX",
+     "FAT"
+    ],
+    [
+     "LAX",
+     "LAS"
+    ],
+    [
+     "LAX",
+     "PHX"
+    ],
+    [
+     "LAX",
+     "TUS"
+    ],
+    [
+     "LAX",
+     "DEN"
+    ],
+    [
+     "LAX",
+     "RNO"
+    ],
+    [
+     "LAX",
+     "ABQ"
+    ],
+    [
+     "SAN",
+     "SLC"
+    ],
+    [
+     "SNA",
+     "SLC"
+    ],
+    [
+     "ONT",
+     "SLC"
+    ],
+    [
+     "BUR",
+     "SLC"
+    ],
+    [
+     "LAS",
+     "SLC"
+    ],
+    [
+     "PHX",
+     "SLC"
+    ]
+   ],
+   "nightly": [
+    [
+     "MSP",
+     "PSP"
+    ]
+   ],
+   "fleet": {
+    "DC10": {
+     "registrations": [
+      "N901WA",
+      "N903WA"
+     ],
+     "drawAs": "MD11",
+     "scheme": "WA1926/w-1970s",
+     "routes": [
+      [
+       "MSP",
+       "PSP"
+      ],
+      [
+       "MSP",
+       "SLC"
+      ],
+      [
+       "MSP",
+       "LAX"
+      ],
+      [
+       "LAX",
+       "SLC"
+      ]
+     ],
+     "note": "DC-10-10s (N901WA, N903WA on Commons), in their white big-W scheme; drawn on the MD-11 until a DC-10 shape exists."
+    },
+    "B722": {
+     "registrations": [
+      "N2802W",
+      "N2805W",
+      "N2810W",
+      "N286WA"
+     ],
+     "note": "727-247s on Commons (1972-84)."
+    },
+    "B733": {
+     "registrations": [
+      "N303WA"
+     ],
+     "note": "737-300 N303WA on Commons (1985), in the bare-metal scheme."
+    }
+   }
   }
  },
  "timeZones": {
+  "ABQ": "America/Denver",
   "ATL": "America/New_York",
   "BIL": "America/Denver",
   "BIS": "America/Chicago",
   "BOS": "America/New_York",
+  "BUR": "America/Los_Angeles",
   "BWI": "America/New_York",
   "CLE": "America/New_York",
   "CWA": "America/Chicago",
@@ -376,6 +541,7 @@
   "EAU": "America/Chicago",
   "EWR": "America/New_York",
   "FAR": "America/Chicago",
+  "FAT": "America/Los_Angeles",
   "FSD": "America/Chicago",
   "GEG": "America/Los_Angeles",
   "GFK": "America/Chicago",
@@ -391,22 +557,34 @@
   "MKE": "America/Chicago",
   "MSN": "America/Chicago",
   "MSP": "America/Chicago",
+  "OAK": "America/Los_Angeles",
   "OMA": "America/Chicago",
+  "ONT": "America/Los_Angeles",
   "ORD": "America/Chicago",
   "PDX": "America/Los_Angeles",
   "PHL": "America/New_York",
   "PHX": "America/Phoenix",
+  "PSP": "America/Los_Angeles",
+  "RNO": "America/Los_Angeles",
   "RST": "America/Chicago",
   "SAN": "America/Los_Angeles",
   "SEA": "America/Los_Angeles",
   "SFO": "America/Los_Angeles",
+  "SJC": "America/Los_Angeles",
   "SLC": "America/Denver",
+  "SMF": "America/Los_Angeles",
+  "SNA": "America/Los_Angeles",
   "STL": "America/Chicago",
   "TPA": "America/New_York",
+  "TUS": "America/Phoenix",
   "YEG": "America/Edmonton",
   "YWG": "America/Winnipeg"
  },
  "airports": {
+  "ABQ": [
+   35.04,
+   -106.6089
+  ],
   "ATL": [
    33.6367,
    -84.4281
@@ -422,6 +600,10 @@
   "BOS": [
    42.362,
    -71.0079
+  ],
+  "BUR": [
+   34.2028,
+   -118.3581
   ],
   "BWI": [
    39.1754,
@@ -466,6 +648,10 @@
   "FAR": [
    46.9207,
    -96.8158
+  ],
+  "FAT": [
+   36.7758,
+   -119.718
   ],
   "FSD": [
    43.5855,
@@ -527,9 +713,17 @@
    44.8801,
    -93.2217
   ],
+  "OAK": [
+   37.7201,
+   -122.2212
+  ],
   "OMA": [
    41.3032,
    -95.8941
+  ],
+  "ONT": [
+   34.056,
+   -117.601
   ],
   "ORD": [
    41.9786,
@@ -547,6 +741,14 @@
    33.4353,
    -112.0059
   ],
+  "PSP": [
+   33.8297,
+   -116.507
+  ],
+  "RNO": [
+   39.4991,
+   -119.768
+  ],
   "RST": [
    43.9083,
    -92.5
@@ -563,9 +765,21 @@
    37.6198,
    -122.3748
   ],
+  "SJC": [
+   37.3625,
+   -121.9292
+  ],
   "SLC": [
    40.7889,
    -111.9799
+  ],
+  "SMF": [
+   38.6954,
+   -121.591
+  ],
+  "SNA": [
+   33.6751,
+   -117.8693
   ],
   "STL": [
    38.7487,
@@ -574,6 +788,10 @@
   "TPA": [
    27.9755,
    -82.5332
+  ],
+  "TUS": [
+   32.115,
+   -110.9381
   ],
   "YEG": [
    53.3097,

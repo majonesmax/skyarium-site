@@ -31,7 +31,7 @@ LOCAL = ZoneInfo("America/Chicago")  # whose evening names a night
 QUIET_FROM, QUIET_TO = 0, 5 * 60  # minutes after local midnight: departures from, arrivals by
 PER_AIRLINE = 10
 TURN_MIN = 35  # on the ground between a leg and the way back
-SPEED_KT = {"MD82": 430, "B722": 455, "B752": 460}
+SPEED_KT = {"MD82": 430, "B722": 455, "B733": 430, "B752": 460, "DC10": 475}
 
 
 def nm_between(a: tuple[float, float], b: tuple[float, float]) -> float:
@@ -87,6 +87,10 @@ def build_night(night: dt.date, bank: dict, airports: dict) -> dict:
     for code, airline in bank["airlines"].items():
         routes = [r for r in airline["routes"] if all(x in airports and x in zones for x in r) and types_for(airline, r)]
         rng.shuffle(routes)
+        # A route flown every night, the way it's written (`nightly`: the user's own Western DC-10, Minneapolis to Palm
+        # Springs), comes first.
+        nightly = list(airline.get("nightly", []))
+        routes = nightly + [r for r in routes if r not in airline.get("nightly", [])]
         used_tails: set[str] = set()
         legs = []
         for route in routes:
@@ -96,7 +100,7 @@ def build_night(night: dt.date, bank: dict, airports: dict) -> dict:
             tails = [t for t in airline["fleet"][kind]["registrations"] if t not in used_tails]
             if not tails:
                 continue
-            a, b = route if rng.random() < 0.5 else route[::-1]
+            a, b = route if route in nightly or rng.random() < 0.5 else route[::-1]
             nm = nm_between(airports[a], airports[b])
             block = block_minutes(nm, SPEED_KT[kind])
             out = window(a, b, block)
@@ -117,8 +121,11 @@ def build_night(night: dt.date, bank: dict, airports: dict) -> dict:
                 "airline": code,
                 "name": airline["name"],
                 "year": int(airline["era"]),
-                "scheme": airline["scheme"],
+                # A type's own scheme where it wore another (Western's DC-10s, white), else the airline's.
+                "scheme": airline["fleet"][kind].get("scheme", airline["scheme"]),
                 "type": kind,
+                # Drawn on another type's shape until its own exists (the DC-10 on the MD-11's).
+                **({"drawAs": airline["fleet"][kind]["drawAs"]} if "drawAs" in airline["fleet"][kind] else {}),
                 "registration": tail,
                 "from": a,
                 "to": b,

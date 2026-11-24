@@ -114,10 +114,41 @@
   .how b { color: var(--ink); }
   .grid { grid-template-columns: repeat(2, 1fr); }
   @media (max-width: 640px) { .grid { grid-template-columns: 1fr; } }
+  .times { align-self: start; padding: 7px 14px; border-radius: 999px; border: 1px solid #9fd4ff66; background: #9fd4ff14;
+    color: var(--ghost); font: 600 14px/1.3 Inter, sans-serif; cursor: pointer; }
+  .times:hover { border-color: var(--ghost); }
+  dialog#schedule { width: min(560px, 100vw - 24px); height: auto; max-height: min(760px, 100svh - 24px); overflow: auto;
+    background: #12143a; padding: 22px 22px 26px; }
+  #schedule .top { display: flex; justify-content: space-between; align-items: start; gap: 12px; }
+  #schedule h2 { font-size: 22px; }
+  #schedule .zone { color: var(--muted); font-size: 14px; margin-top: 2px; }
+  #schedule .nights { display: flex; gap: 8px; margin: 16px 0 6px; flex-wrap: wrap; }
+  #schedule .nights button { padding: 6px 13px; border-radius: 999px; border: 1px solid #f3ede440; background: transparent;
+    color: var(--ink); font: 14px Inter, sans-serif; cursor: pointer; }
+  #schedule .nights button[aria-pressed="true"] { background: var(--ghost); border-color: var(--ghost); color: #0b0c18; font-weight: 600; }
+  #schedule ul { list-style: none; margin: 0; padding: 0; }
+  #schedule li { border-top: 1px solid var(--line); }
+  #schedule .flight { display: flex; gap: 12px; width: 100%; padding: 12px 2px;
+    background: none; border: 0; color: var(--ink); text-align: left; font: 15px/1.35 Inter, sans-serif; cursor: pointer; }
+  #schedule .flight .t { flex: 0 0 84px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  #schedule .flight .r, #schedule .flight .sub { display: block; }
+  #schedule .flight .sub { color: var(--muted); font-size: 14px; }
+  #schedule .flight .now { color: var(--ghost); font-weight: 600; }
+  #schedule li.done .flight { opacity: 0.45; }
+  #schedule .way { margin: 0 0 14px; padding: 4px 14px 10px; border-radius: 16px; background: #ffffff0a; }
+  #schedule .way h3 { font-size: 14px; color: var(--ghost); letter-spacing: 0.06em; text-transform: uppercase; margin: 10px 0 4px; }
+  #schedule .stop { display: flex; gap: 12px; padding: 8px 0; font-size: 15px; line-height: 1.35; }
+  #schedule .stop .t { flex: 0 0 74px; }
+  #schedule .stop + .stop { border-top: 1px dashed #f3ede41f; }
+  #schedule .stop .t { font-variant-numeric: tabular-nums; color: var(--muted); }
+  #schedule .stop .det { color: var(--muted); font-size: 14px; }
+  #schedule .fine { color: var(--muted); font-size: 13px; margin: 8px 0 0; }
+  #schedule .empty { padding: 24px 0; }
 </style>
 <script src="data.js"></script>
 <script src="openliveries_renderer.js"></script>
 <script src="card_drawing.js"></script>
+<script src="ghost_path.js"></script>
 </head>
 <body>
 <header>
@@ -153,7 +184,8 @@
     const card = document.createElement("article");
     card.className = "card";
     card.innerHTML = `<div class="sky" role="button" tabindex="0" aria-label="Show the other side"></div><button class="view3d" type="button" aria-label="See it in 3D">3D</button>
-      <div class="about"><div><h2></h2><div class="what"></div></div><div class="look"></div></div>`;
+      <div class="about"><div><h2></h2><div class="what"></div></div><div class="look"></div>
+      <button class="times" type="button">Tonight's flights</button></div>`;
     card.querySelector("h2").textContent = g.airlineName;
     card.querySelector(".what").textContent = `${g.year} · ${g.types.join(" and ")}`;
     const [home, ...rest] = g.cities;
@@ -169,6 +201,7 @@
       card.querySelector(".about").insertBefore(n, look);
     }
     card.querySelector(".view3d").addEventListener("click", () => open3D(g));
+    card.querySelector(".times").addEventListener("click", () => openSchedule(g));
     const sky = card.querySelector(".sky");
     const drawn = {};
     let side = "left";
@@ -206,6 +239,150 @@
   dialog.querySelector(".close").addEventListener("click", close);
   dialog.addEventListener("click", (e) => { if (e.target === dialog) close(); });
   dialog.addEventListener("close", () => { frame.src = "about:blank"; });
+</script>
+<dialog id="schedule" aria-label="Flights">
+  <div class="top">
+    <div><h2></h2><div class="zone"></div></div>
+    <button class="close" type="button" aria-label="Close">×</button>
+  </div>
+  <div class="nights"></div>
+  <ul></ul>
+  <p class="fine">Takeoff and landing can shift a minute or two with the wind. In between they're right on time.</p>
+</dialog>
+<script>
+  // Each card's flights for the nights ahead (D299): the nightly files the app reads, worked out the way the app flies
+  // them (ghost_path.js), with the towns each passes near.
+  const sheet = document.getElementById("schedule");
+  const clock = new Intl.DateTimeFormat([], { hour: "numeric", minute: "2-digit" });
+  const zone = new Intl.DateTimeFormat([], { timeZoneName: "short" }).formatToParts(new Date()).find((p) => p.type === "timeZoneName")?.value;
+  const TYPE = { MD82: "MD-82", B722: "727-200", B752: "757-200", B733: "737-300", DC10: "DC-10" };
+  const POINTS = ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"];
+  const point = (deg) => POINTS[Math.round(((deg % 360) + 360) % 360 / 45) % 8];
+  const city = (code) => CITY[code] ?? code;
+  let nights;
+  // The nights listed, each night's file: from skyarium.app, or GHOST_NIGHTS when a test page sets it.
+  function loadNights() {
+    nights ??= globalThis.GHOST_NIGHTS
+      ? Promise.resolve(globalThis.GHOST_NIGHTS)
+      : fetch("../ghosts/v1/index.json").then((r) => r.json()).then((index) =>
+          Promise.all(index.nights.map((n) => fetch(`../ghosts/v1/${n}.json`).then((r) => r.json()))));
+    return nights;
+  }
+
+  // Where to look: a handful of towns it passes near, spread along the way, the nearest and biggest first.
+  function stops(f, path) {
+    const from = f.fromPos, to = f.toPos, km = (a, b) => GhostPath.distance(a, b) / 1000;
+    const lats = [from[0], to[0]], lons = [from[1], to[1]];
+    const near = TOWNS.filter(([, , la, lo]) => la > Math.min(...lats) - 1 && la < Math.max(...lats) + 1
+      && lo > Math.min(...lons) - 1.5 && lo < Math.max(...lons) + 1.5 && km([la, lo], from) > 30 && km([la, lo], to) > 30);
+    const best = new Map();
+    for (let t = path.liftoff.getTime(); t <= path.touchdown.getTime(); t += 30_000) {
+      const at = path.at(new Date(t));
+      if (!at) continue;
+      for (const town of near) {
+        const d = km([town[2], town[3]], [at.lat, at.lon]);
+        if (d < 32 && !(best.get(town)?.d <= d)) best.set(town, { town, d, t, at });
+      }
+    }
+    const span = path.touchdown - path.liftoff, n = 6, picked = [];
+    for (let i = 0; i < n; i++) {
+      const lo = path.liftoff.getTime() + (span * i) / n, hi = lo + span / n;
+      const inside = [...best.values()].filter((c) => c.t >= lo && c.t < hi);
+      const top = inside.sort((a, b) => (Math.log10(b.town[4] + 10) - b.d / 8) - (Math.log10(a.town[4] + 10) - a.d / 8))[0];
+      if (top) picked.push(top);
+    }
+    return picked;
+  }
+
+  function stopRow(time, place, how) {
+    const row = document.createElement("div");
+    row.className = "stop";
+    row.innerHTML = `<span class="t"></span><div><div class="p"></div><div class="det"></div></div>`;
+    row.querySelector(".t").textContent = clock.format(time);
+    row.querySelector(".p").textContent = place;
+    row.querySelector(".det").textContent = how;
+    return row;
+  }
+
+  function way(f, path) {
+    const box = document.createElement("div");
+    box.className = "way";
+    box.innerHTML = `<h3>Where to look</h3>`;
+    box.append(stopRow(path.liftoff, `Takes off from ${city(f.from)}`, "climbing out over the airport"));
+    for (const s of stops(f, path)) {
+      const miles = Math.round(s.d / 1.609);
+      const where = miles < 2 ? "right overhead" : `${miles} mi ${point(GhostPath.bearingDeg([s.town[2], s.town[3]], [s.at.lat, s.at.lon]))}`;
+      const feet = Math.round(s.at.altFt / 1000) * 1000;
+      box.append(stopRow(new Date(s.t), `${s.town[0]}, ${s.town[1]}`, `${where} · ${feet.toLocaleString()} ft · heading ${point(s.at.trackDeg)}`));
+    }
+    box.append(stopRow(path.touchdown, `Lands in ${city(f.to)}`, "coming down over the airport"));
+    return box;
+  }
+
+  function showNight(g, night, list) {
+    list.replaceChildren();
+    const flights = night.flights.filter((f) => f.scheme === g.id).map((f) => ({ f, path: GhostPath(f) }))
+      .sort((a, b) => a.path.liftoff - b.path.liftoff);
+    if (!flights.length) {
+      list.innerHTML = `<li class="empty">No flights this night.</li>`;
+      return;
+    }
+    const now = new Date();
+    for (const { f, path } of flights) {
+      const li = document.createElement("li");
+      const done = now > path.gone, flying = now >= path.appears && !done;
+      if (done) li.className = "done";
+      li.innerHTML = `<button class="flight" type="button" aria-expanded="false"><span class="t"></span><span><span class="r"></span><span class="sub"></span></span></button>`;
+      li.querySelector(".t").textContent = clock.format(path.liftoff);
+      li.querySelector(".r").textContent = `${city(f.from)} → ${city(f.to)}`;
+      const sub = li.querySelector(".sub");
+      sub.textContent = `${TYPE[f.type] ?? f.type} ${f.registration} · ${done ? "landed" : "lands"} ${clock.format(path.touchdown)}`;
+      if (flying) sub.insertAdjacentHTML("beforeend", ` · <span class="now">in the air now</span>`);
+      const button = li.querySelector(".flight");
+      button.addEventListener("click", () => {
+        const open = li.querySelector(".way");
+        if (open) open.remove();
+        else li.append(way(f, path));
+        button.setAttribute("aria-expanded", String(!open));
+      });
+      list.append(li);
+    }
+  }
+
+  async function openSchedule(g) {
+    sheet.querySelector("h2").textContent = `${g.airlineName} flights`;
+    sheet.querySelector(".zone").textContent = `Times are in your time zone${zone ? ` (${zone})` : ""}`;
+    const tabs = sheet.querySelector(".nights"), list = sheet.querySelector("ul");
+    tabs.replaceChildren();
+    list.innerHTML = `<li class="empty">Loading the schedule…</li>`;
+    sheet.showModal();
+    let all;
+    try {
+      all = await loadNights();
+    } catch {
+      nights = undefined;
+      list.innerHTML = `<li class="empty">Couldn't load the schedule. Try again in a bit.</li>`;
+      return;
+    }
+    // Nights not over yet, each named by its evening: "Monday night".
+    const ahead = all.filter((n) => n.flights.some((f) => Date.parse(f.arrive) + 30 * 60_000 > Date.now()));
+    const day = new Intl.DateTimeFormat([], { weekday: "long", timeZone: "UTC" });
+    for (const [i, night] of ahead.entries()) {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.textContent = `${day.format(new Date(`${night.night}T12:00:00Z`))} night`;
+      b.addEventListener("click", () => {
+        for (const o of tabs.children) o.setAttribute("aria-pressed", String(o === b));
+        showNight(g, night, list);
+      });
+      b.setAttribute("aria-pressed", String(i === 0));
+      tabs.append(b);
+    }
+    if (ahead.length) showNight(g, ahead[0], list);
+    else list.innerHTML = `<li class="empty">No flights scheduled yet. Check back tonight.</li>`;
+  }
+  sheet.querySelector(".close").addEventListener("click", () => sheet.close());
+  sheet.addEventListener("click", (e) => { if (e.target === sheet) sheet.close(); });
 </script>
 </body>
 </html>

@@ -53,6 +53,12 @@
   .turn { flex: none; padding: 7px 14px; border-radius: 999px; border: 1px solid #f3ede455; font-size: 14px; font-weight: 600; }
   .note { color: var(--muted); font-size: 15px; margin: 34px 0 0; max-width: 680px; }
 
+  .open { padding: 64px 0 72px; border-top: 1px solid var(--line); }
+  .open h2 { font-size: clamp(24px, 3.6vw, 32px); margin-bottom: 12px; }
+  .open p { color: var(--muted); margin: 0; max-width: 680px; }
+  .open .links { display: flex; flex-wrap: wrap; gap: 10px 26px; margin-top: 20px; }
+  .open .links a { color: var(--glow); font-weight: 600; text-decoration: none; }
+  .open .links a:hover { text-decoration: underline; }
   .app { text-align: center; padding: 72px 0 80px; border-top: 1px solid var(--line); }
   .app h2 { font-size: clamp(28px, 4.4vw, 40px); margin-bottom: 12px; }
   .app p { color: var(--muted); margin: 0 auto 28px; max-width: 520px; }
@@ -101,6 +107,16 @@
     <p class="note">Each drawing is built from the aircraft's measured shape and its airline's scheme and checked against dated photos. The logos are our own simplified marks. Airline names, logos and liveries belong to their owners.</p>
   </div>
 </main>
+
+<section class="open">
+  <div class="wrap">
+    <h2>Open Liveries</h2>
+    <p>Most of Skyarium's paint schemes come from Open Liveries. It's our companion project, built to support Skyarium.
+      Each airline's scheme is written down as data so any app or flight sim can draw a plane the way it really looks.
+      The data is free for anyone to use (CC0) and the code is MIT licensed.</p>
+    <p class="links"><a href="https://majonesmax.github.io/open-liveries/">Browse the schemes →</a><a href="https://github.com/majonesmax/open-liveries">Open Liveries on GitHub →</a></p>
+  </div>
+</section>
 
 <section class="app">
   <div class="wrap">

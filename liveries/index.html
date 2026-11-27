@@ -46,7 +46,7 @@
     color: inherit; font: inherit; text-align: left; cursor: pointer; overflow: hidden; transition: transform 0.2s, border-color 0.2s; }
   .plane:hover, .plane:focus-visible { transform: translateY(-3px); border-color: #f7c98b66; outline: none; }
   .plane .sky { aspect-ratio: 2 / 1; background: var(--sky); display: flex; align-items: center; justify-content: center; }
-  .plane .sky svg { width: 92%; height: auto; max-height: 86%; }
+  .plane .sky img { width: 92%; height: auto; max-height: 86%; object-fit: contain; }
   .plane .about { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 16px 20px 18px; }
   .plane h2 { font-size: 22px; }
   .plane .what { color: var(--muted); font-size: 15px; }
@@ -86,9 +86,9 @@
   }
   @media (max-width: 420px) { .wrap { padding: 0 16px; } .plane .about { padding: 14px 16px 16px; } }
 </style>
-<script src="data.js"></script>
-<script src="openliveries_renderer.js"></script>
-<script src="card_drawing.js"></script>
+<!-- The planes and their drawings as images (cards.js and cards/, from tools/make_site_liveries.mjs, D305): the renderer
+     and its data load only in the turntable. -->
+<script src="cards.js"></script>
 </head>
 <body>
 <header>
@@ -141,7 +141,7 @@
 </footer>
 
 <script>
-  // The app's card drawing (D264) for each plane, and its turntable (D267) in the dialog.
+  // The app's card drawing (D264) for each plane, drawn at build time (D305), and its turntable (D267) in the dialog.
   const list = document.getElementById("planes");
   const dialog = document.getElementById("turntable");
   const frame = dialog.querySelector("iframe");
@@ -150,7 +150,8 @@
     button.className = "plane";
     button.type = "button";
     button.setAttribute("aria-label", `${plane.airline}, ${plane.what}: turn it in 3D`);
-    button.innerHTML = `<div class="sky">${CardDrawing.svg({ ref: plane.ref, shape: plane.shape, side: "left" }) || ""}</div>
+    const [src, w, h] = CARD_IMAGES[i];
+    button.innerHTML = `<div class="sky"><img src="${src}" width="${w}" height="${h}" alt="" decoding="async"></div>
       <div class="about"><div><h2></h2><div class="what"></div></div><span class="turn">Turn in 3D</span></div>`;
     button.querySelector("h2").textContent = plane.airline;
     button.querySelector(".what").textContent = plane.what;

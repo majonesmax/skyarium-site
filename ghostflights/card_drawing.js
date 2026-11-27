@@ -352,9 +352,29 @@
     return markup.replace(/<svg\b[^>]*>/, (open) => `${open}<style>${rules}</style>`);
   }
 
+  /** A name as a mark's key, as the Horizon makes it (OpenLiveries.slug): "O'Malley the Mallard Duck" → "omalley-the-mallard-duck". */
+  const slug = (name) =>
+    name
+      .normalize('NFKD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .replace(/['\u2019]/g, '')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+
+  /**
+   * A jet's art's mark, as the Horizon picks it (OpenLiveries.artMark): its tail's own portrait ("FFT-ART/<name>"),
+   * else its species' ("SPECIES/<subject>"), else its family's silhouette ("ANIMAL/<family>"); undefined if none.
+   */
+  function artMark(art) {
+    const marks = root.CARD_DATA.marks.marks;
+    const keys = [art.name && 'FFT-ART/' + slug(art.name), art.subject && 'SPECIES/' + slug(art.subject), 'ANIMAL/' + art.family];
+    return keys.find((k) => k && marks[k]);
+  }
+
   /**
    * A request's scheme and shape: `ref` is "liveries/<id>" or "airlines/<code>" in card_liveries.json; `art` a jet's
-   * own tail art ({ family, colors }) in place of the scheme's fin logos. Undefined if either isn't there.
+   * own tail art ({ name, subject, family, colors }) in place of the scheme's fin logos. Undefined if either isn't there.
    */
   function prepare({ ref, shape: shapeId, art, registration }) {
     const [group, ...rest] = ref.split('/');
@@ -374,17 +394,20 @@
       );
       scheme = { ...scheme, types };
     }
-    if (art) {
-      // As the Horizon does (OpenLiveries.withArt): the family's silhouette in the animal's colours, a little low on
+    const key = art && artMark(art);
+    if (key) {
+      // As the Horizon does (OpenLiveries.withArt): a portrait drawn in the fin's frame (`fin`) at the fin's middle as
+      // tall as the fin, the fin's outline trimming it; a family's silhouette in the animal's colours a little low on
       // the fin, as big as fits.
+      const fin = root.CARD_DATA.marks.marks[key].fin;
       scheme = { ...scheme, logos: (scheme.logos || []).filter((l) => l.place !== 'fin') };
       scheme.logos.push({
-        mark: 'ANIMAL/' + art.family,
+        mark: key,
         place: 'fin',
-        at: [0.5, 0.4],
-        height: 0.8,
+        at: fin ? [0.5, 0.5] : [0.5, 0.4],
+        height: fin ? 1 : 0.8,
         colors: art.colors && art.colors.length ? art.colors : ['#595959'],
-        fit: true,
+        fit: !fin,
       });
     }
     return { scheme, shape, drawnOn: drawnOnShape(scheme) };
@@ -419,5 +442,5 @@
     return { png: canvas.toDataURL('image/png'), aspect: vw / vh };
   }
 
-  root.CardDrawing = { measured, prepare, painter, svg, png, withFonts };
+  root.CardDrawing = { measured, prepare, painter, svg, png, withFonts, slug, artMark };
 })(globalThis);

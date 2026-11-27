@@ -1,7 +1,7 @@
 // A flight card's drawing (D264): Open Liveries' own side view (its renderer, `openliveries_renderer.js`) of the
 // scheme an airframe wears, on its type's measured shape, with our own marks for its logos. Run in a hidden web
 // view by `CardDrawing.swift`, which sets `CARD_DATA` first: { liveries: card_liveries.json, shapes:
-// plane_shapes.json, marks: marks.json } (all as parsed JSON). Also runs in Node, for tools/card_drawing_check.mjs.
+// plane_shapes.json, marks: marks.json, fonts: Fonts/stand_ins.json with each face's data } (all as parsed JSON). Also runs in Node, for tools/card_drawing_check.mjs.
 (function (root) {
   'use strict';
   const OL = root.OpenLiveries;
@@ -133,6 +133,37 @@
   const r1 = (v) => Math.round(v * 10) / 10;
 
   /**
+   * Lettering in a mirrored mark (`keep`, tools/make_marks.py): the shapes marked `keep` are one group, mirrored with
+   * the mark and then reflected back across the line through the group's middle (its bounding box's centre, mirrored)
+   * square to its baseline. Upright lettering (`keep: true`) comes out unflipped where the mirror puts it, reading
+   * normally; lettering on a slant (`keep: <degrees>`, its baseline's angle, counter-clockwise from the left side's x)
+   * also takes the mirrored slant, its first letter still first (Western Global's WGA rises toward the tail on both
+   * sides). Returns a function from a point in the mark's box to its place on the right side, or undefined.
+   */
+  function keeper(mark) {
+    const kept = mark.shapes.filter((s) => s.keep);
+    if (!kept.length) return undefined;
+    let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+    for (const s of kept) {
+      for (const [x, y] of s.p) {
+        x0 = Math.min(x0, x); x1 = Math.max(x1, x);
+        y0 = Math.min(y0, y); y1 = Math.max(y1, y);
+      }
+    }
+    const slant = kept.map((s) => s.keep).find((k) => typeof k === 'number') || 0;
+    // The axis after the mirror: through the mirrored centre, at 90° − slant (the mirror of the baseline's normal).
+    const cx = mark.aspect - (x0 + x1) / 2;
+    const cy = (y0 + y1) / 2;
+    const a = ((90 - slant) * Math.PI) / 180;
+    const ux = Math.cos(a), uy = Math.sin(a);
+    return ([x, y]) => {
+      const dx = mark.aspect - x - cx, dy = y - cy;
+      const t = dx * ux + dy * uy;
+      return [cx + 2 * t * ux - dx, cy + 2 * t * uy - dy];
+    };
+  }
+
+  /**
    * Draws a logo with our own mark (Tailspot's marks.json, the Horizon's), centred in the renderer's box, its height
    * the box's; clipped to its part by the renderer, as Open Liveries draws it (United's globe runs off the fin). A
    * jet's tail art (`fit`) is made smaller until it's on the fin, as the Horizon paints it (PlaneModel.finBox). A
@@ -163,23 +194,28 @@
         };
         while (!fits(h) && h > 2) h *= 0.95;
       }
+      // A title drawn as its mark (D288): the box is the title's, baseline at its foot; stretched along to its length.
+      const stretch = box.fitWidth && box.width > 0 ? box.width / (mark.aspect * h) : 1;
       // Shapes are in a box `aspect` wide and 1 tall, y up, facing forward seen from the left. From the right the
       // nose is on the right: a mark that faces forward (`mirror`) is flipped to; any other reads the same.
       const flip = side === 'right' && mark.mirror;
+      const unflip = flip ? keeper(mark) : undefined;
       const copy = ({ x: cx, y: cy, h, stretch = 1 }) => {
         const x0 = cx - (mark.aspect * h * stretch) / 2;
         const y0 = cy + h / 2;
-        const point = ([x, y]) => `${r1(x0 + (flip ? mark.aspect - x : x) * h * stretch)},${r1(y0 - y * h)}`;
-        const ring = (points) => 'M' + points.map(point).join('L') + 'Z';
+        const at = ([x, y]) => `${r1(x0 + x * h * stretch)},${r1(y0 - y * h)}`;
+        const point = ([x, y]) => at([flip ? mark.aspect - x : x, y]);
         return mark.shapes
           .map((s) => {
             const fill = typeof s.c === 'number' ? (colors[s.c] ?? '#999999') : s.c;
+            const place = s.keep && unflip ? (p) => at(unflip(p)) : point;
+            const ring = (points) => 'M' + points.map(place).join('L') + 'Z';
             const d = [s.p, ...(s.holes || [])].map(ring).join('');
             return `<path d="${d}" fill="${fill}" fill-rule="evenodd"/>`;
           })
           .join('');
       };
-      const one = { x: cx, y: cy, h };
+      const one = { x: cx, y: cy, h, stretch };
       const copies =
         texture && logo.place === 'fuselage'
           ? textureTiles(scheme, view || side, logo, mark, one)
@@ -273,26 +309,105 @@
     });
   }
 
+  /** A font name's covered family ("Gotham Rounded Bold": Gotham Rounded), the longest first; undefined if none. */
+  function coveredFamily(name, covers) {
+    const n = name.toLowerCase();
+    return Object.keys(covers)
+      .filter((f) => n === f.toLowerCase() || n.startsWith(f.toLowerCase() + ' '))
+      .sort((a, b) => b.length - a.length)[0];
+  }
+
+  /**
+   * The scheme with our bundled look-alikes (D287, tools/build_fonts.py) after each title's own fonts, so a phone
+   * without Gotham draws Montserrat rather than Helvetica, as the Horizon does (PlaneModel.font).
+   */
+  function withStandIns(scheme) {
+    const covers = root.CARD_DATA.fonts?.covers;
+    if (!covers) return scheme;
+    const title = (t) => {
+      const similar = t.type?.similar ?? [];
+      const extra = similar.map((n) => covers[coveredFamily(n, covers)]).filter(Boolean);
+      return extra.length ? { ...t, type: { ...t.type, similar: [...similar, ...new Set(extra)] } } : t;
+    };
+    const out = { ...scheme };
+    if (scheme.titles) out.titles = scheme.titles.map(title);
+    if (scheme.types) {
+      out.types = Object.fromEntries(
+        Object.entries(scheme.types).map(([k, v]) => [k, v.titles ? { ...v, titles: v.titles.map(title) } : v]),
+      );
+    }
+    return out;
+  }
+
+  /**
+   * An SVG with the stand-in faces its titles name embedded (a picture drawn through an image sees no other
+   * fonts than the system's and its own).
+   */
+  function withFonts(markup) {
+    const faces = (root.CARD_DATA.fonts?.faces ?? []).filter((f) => f.data && markup.includes(`'${f.family}'`));
+    if (!faces.length) return markup;
+    const rules = faces
+      .map((f) => `@font-face{font-family:'${f.family}';font-weight:${f.weight};src:url(data:font/ttf;base64,${f.data})}`)
+      .join('');
+    return markup.replace(/<svg\b[^>]*>/, (open) => `${open}<style>${rules}</style>`);
+  }
+
+  /** A name as a mark's key, as the Horizon makes it (OpenLiveries.slug): "O'Malley the Mallard Duck" → "omalley-the-mallard-duck". */
+  const slug = (name) =>
+    name
+      .normalize('NFKD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .replace(/['\u2019]/g, '')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+
+  /**
+   * A jet's art's mark, as the Horizon picks it (OpenLiveries.artMark): its tail's own portrait ("FFT-ART/<name>"),
+   * else its species' ("SPECIES/<subject>"), else its family's silhouette ("ANIMAL/<family>"); undefined if none.
+   */
+  function artMark(art) {
+    const marks = root.CARD_DATA.marks.marks;
+    const keys = [art.name && 'FFT-ART/' + slug(art.name), art.subject && 'SPECIES/' + slug(art.subject), 'ANIMAL/' + art.family];
+    return keys.find((k) => k && marks[k]);
+  }
+
   /**
    * A request's scheme and shape: `ref` is "liveries/<id>" or "airlines/<code>" in card_liveries.json; `art` a jet's
-   * own tail art ({ family, colors }) in place of the scheme's fin logos. Undefined if either isn't there.
+   * own tail art ({ name, subject, family, colors }) in place of the scheme's fin logos. Undefined if either isn't there.
    */
-  function prepare({ ref, shape: shapeId, art }) {
+  function prepare({ ref, shape: shapeId, art, registration }) {
     const [group, ...rest] = ref.split('/');
     let scheme = root.CARD_DATA.liveries[group]?.[rest.join('/')];
     const shape = shapeFor(shapeId);
     if (!scheme || !shape) return undefined;
-    if (art) {
-      // As the Horizon does (OpenLiveries.withArt): the family's silhouette in the animal's colours, a little low on
+    scheme = withStandIns(scheme);
+    // The aircraft's own number where the scheme paints it (the Coast Guard's on the nose), as the Horizon letters it
+    // (OpenLiveries.withRegistration): this plane's, or none, never the measured plane's.
+    const lettered = (titles) =>
+      titles.flatMap((t) => (!t.registration ? [t] : registration ? [{ ...t, text: registration, parts: undefined }] : []));
+    if ((scheme.titles || []).some((t) => t.registration)) scheme = { ...scheme, titles: lettered(scheme.titles) };
+    if (scheme.types) {
+      // Each type's own paint (the Coast Guard's HC-144) letters it too.
+      const types = Object.fromEntries(
+        Object.entries(scheme.types).map(([k, v]) => [k, v.titles ? { ...v, titles: lettered(v.titles) } : v]),
+      );
+      scheme = { ...scheme, types };
+    }
+    const key = art && artMark(art);
+    if (key) {
+      // As the Horizon does (OpenLiveries.withArt): a portrait drawn in the fin's frame (`fin`) at the fin's middle as
+      // tall as the fin, the fin's outline trimming it; a family's silhouette in the animal's colours a little low on
       // the fin, as big as fits.
+      const fin = root.CARD_DATA.marks.marks[key].fin;
       scheme = { ...scheme, logos: (scheme.logos || []).filter((l) => l.place !== 'fin') };
       scheme.logos.push({
-        mark: 'ANIMAL/' + art.family,
+        mark: key,
         place: 'fin',
-        at: [0.5, 0.4],
-        height: 0.8,
+        at: fin ? [0.5, 0.5] : [0.5, 0.4],
+        height: fin ? 1 : 0.8,
         colors: art.colors && art.colors.length ? art.colors : ['#595959'],
-        fit: true,
+        fit: !fin,
       });
     }
     return { scheme, shape, drawnOn: drawnOnShape(scheme) };
@@ -306,8 +421,8 @@
     const side = request.side || 'left';
     const painted = OL.schemeOn(scheme, shape);
     const logo = painter(painted, shape, side === 'right' ? 'right' : 'left');
-    if (side === 'below') return OL.renderBelow(scheme, { shape, drawnOn, logo, idPrefix: 'card' });
-    return OL.renderSide(scheme, { shape, side, drawnOn, logo, idPrefix: 'card' });
+    if (side === 'below') return withFonts(OL.renderBelow(scheme, { shape, drawnOn, logo, idPrefix: 'card' }));
+    return withFonts(OL.renderSide(scheme, { shape, side, drawnOn, logo, idPrefix: 'card' }));
   }
 
   /** The same as a PNG data URL `width` pixels wide (in a page: drawn through an image and a canvas). */
@@ -327,5 +442,5 @@
     return { png: canvas.toDataURL('image/png'), aspect: vw / vh };
   }
 
-  root.CardDrawing = { measured, prepare, painter, svg, png };
+  root.CardDrawing = { measured, prepare, painter, svg, png, withFonts, slug, artMark };
 })(globalThis);

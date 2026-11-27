@@ -146,6 +146,11 @@
   .pass img { display: block; width: 100%; }
 
   /* Free */
+  .ghosts { text-align: center; }
+  .ghosts .lead { margin: 0 auto; }
+  .ghosts .links { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 28px; margin: 22px 0 0; }
+  .ghosts .links a { color: var(--glow); font-weight: 600; text-decoration: none; }
+  .ghosts .links a:hover { text-decoration: underline; }
   .free { text-align: center; background: linear-gradient(180deg, transparent, #241d40 40%, transparent); }
   .free .lead { margin: 0 auto; }
 
@@ -206,6 +211,7 @@
       <!-- Apple's own badge, unaltered (Apple Marketing Tools); it links to the listing. -->
       <a class="store" href="https://apps.apple.com/us/app/skyarium/id6826740904"><img src="assets/app-store-badge.svg" alt="Download on the App Store" width="162" height="54"></a>
       <a class="more" href="liveries/">See the liveries →</a>
+      <a class="more" href="ghostflights/">Look for a ghost →</a>
     </div>
     </div>
     <!-- The promo: real flights, recorded in the app. Autoplays muted, with a button for the music. -->
@@ -253,6 +259,18 @@
              autoplay muted loop playsinline preload="metadata"
              aria-label="Skyarium's Wall at Heathrow at dusk: following a Boeing 777 climbing out, the arrivals board, a 787 on final, and the list of nearby flights"></video>
     </div>
+  </div>
+</section>
+
+<section class="ghosts" id="ghosts">
+  <div class="wrap">
+    <div class="eyebrow">Ghost flights</div>
+    <h2>Old airlines fly again at night</h2>
+    <p class="lead">Turn on ghost flights and 18 airlines that are gone cross your sky every night. Pan Am, TWA,
+      Eastern, Braniff, PSA and the rest fly their real flights from their own timetables of 1985 and 1979. Each one
+      leaves at its real hour between 9 p.m. and 7 a.m. They glow pale blue and say Ghost so you won't mistake one
+      for a real plane.</p>
+    <p class="links"><a href="ghostflights/">See the airlines →</a><a href="https://ghostflights.tv">Watch them on ghostflights.tv →</a></p>
   </div>
 </section>
 

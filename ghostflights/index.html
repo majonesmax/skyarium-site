@@ -4,7 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ghost flights · Skyarium</title>
-<meta name="description" content="Old airlines fly their old routes again after midnight in Skyarium. Where to look for each one.">
+<!-- v2 (D301): built into website/ghostflights/ by `node tools/make_site_ghosts.mjs --v2` with the release that reads ghosts/v2/bank.json. -->
+<meta name="description" content="Fourteen gone airlines fly their real flights again every night in Skyarium. Where to look for each one.">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#1b1838">
 <link rel="icon" href="../assets/favicon-64.png">
@@ -144,11 +145,30 @@
   #schedule .stop .det { color: var(--muted); font-size: 14px; }
   #schedule .fine { color: var(--muted); font-size: 13px; margin: 8px 0 0; }
   #schedule .empty { padding: 24px 0; }
+
+  /* v2: a card per airline, its looks under the drawing, the night's cast up top. */
+  .tonight { margin-top: 22px; padding: 12px 18px; border-radius: 16px; border: 1px dashed #9fd4ff66; color: var(--ghost);
+    font-size: 16px; max-width: 660px; }
+  .tonight b { color: var(--ink); font-weight: 600; }
+  .looks { display: flex; flex-wrap: wrap; gap: 6px; }
+  .looks button { padding: 3px 10px; border-radius: 999px; border: 1px solid #f3ede433; background: transparent; color: var(--muted);
+    font: 500 13px/1.4 Inter, sans-serif; cursor: pointer; }
+  .looks button:hover { border-color: #9fd4ff88; }
+  .looks button[aria-pressed="true"] { border-color: var(--ghost); color: var(--ink); background: #9fd4ff1f; }
+  .paint { color: var(--muted); font-size: 14px; margin-top: -4px; }
+  .channel { font-size: 14px; color: var(--muted); }
+  .channel a { color: var(--ghost); text-decoration: none; font-weight: 600; }
+  .channel a:hover { text-decoration: underline; }
+  .tag { display: inline-block; margin-left: 8px; padding: 1px 8px; border-radius: 999px; background: #9fd4ff26; color: var(--ghost);
+    font: 600 12px/1.6 Inter, sans-serif; vertical-align: 3px; }
+  #schedule .flight .no { font-weight: 600; }
+  #schedule .off { color: var(--muted); padding: 22px 0 8px; font-size: 15px; }
 </style>
 <script src="data.js"></script>
 <script src="openliveries_renderer.js"></script>
 <script src="card_drawing.js"></script>
 <script src="ghost_path.js"></script>
+<script src="ghost_bank.js"></script>
 </head>
 <body>
 <header>
@@ -156,63 +176,84 @@
     <a class="home" href="../"><img src="../assets/apple-touch-icon.png" alt="" width="32" height="32">Skyarium</a>
     <div class="eyebrow">Ghost flights</div>
     <h1>Look for a ghost</h1>
-    <p class="lead">Old airlines fly their old routes again after midnight. Northwest Orient and Republic are back over Minneapolis and Western is back over Southern California until about 5 in the morning.</p>
+    <p class="lead">Eighteen airlines that are gone fly again every night. Their real flights fly at their real times, from the airlines' own timetables of 1985 and 1979.</p>
+    <p class="tonight" id="tonight" hidden></p>
     <p class="how">Turn them on in Skyarium under <b>Settings › The Horizon › Ghost flights</b>.</p>
   </div>
 </header>
 <main>
   <div class="wrap">
     <div class="grid" id="grid"></div>
-    <p class="note">Ghosts fly real routes these airlines flew in their day, between midnight and 5 AM local time. They glow pale blue and say Ghost so you won't mistake one for a real plane. Everyone sees the same ghosts at the same time. Tap a drawing to see its other side. Airline names, logos and liveries belong to their owners.</p>
+    <p class="note">Ghosts are flights these airlines really flew at that hour. They leave from 9 PM and land by 7 AM local time and are the same flights as on <a href="https://ghostflights.tv/">ghostflights.tv</a>. They glow pale blue and say Ghost so you won't mistake one for a real plane. Everyone sees the same ghosts at the same time. Tap a drawing to see its other side. Airline names, logos and liveries belong to their owners.</p>
   </div>
 </main>
 <section class="app">
   <div class="wrap">
     <h2>See them in your own sky</h2>
-    <p>In Skyarium every light overhead is a real flight drawn in its own paint. After midnight a few old ones join them.</p>
+    <p>In Skyarium every light overhead is a real flight drawn in its own paint. At night the old ones join them.</p>
     <!-- Apple's own badge, unaltered (Apple Marketing Tools); it links to the listing. -->
     <a class="store" href="https://apps.apple.com/us/app/skyarium/id6826740904"><img src="../assets/app-store-badge.svg" alt="Download on the App Store" width="162" height="54"></a>
   </div>
 </section>
 <footer>
-  <div class="wrap"><a href="../">Skyarium</a> · <a href="../liveries/">Liveries</a> · <a href="../support.html">Support</a> · <a href="../privacy.html">Privacy</a> · © 2026 Skyarium</div>
+  <div class="wrap"><a href="../">Skyarium</a> · <a href="../liveries/">Liveries</a> · <a href="https://ghostflights.tv/">Ghostflights</a> · <a href="../support.html">Support</a> · <a href="../privacy.html">Privacy</a> · © 2026 Skyarium</div>
 </footer>
 <script>
-  // Each scheme the ghosts fly in, drawn by the app's card renderer (D264) as on /specials; tap flips left and right.
+  // A card per airline (v2, D301): each of its night's types in each paint it wore, drawn by the app's card renderer
+  // (D264); tap the drawing to flip it, a chip for another look.
   const grid = document.getElementById("grid");
-  for (const g of GHOSTS) {
+  const list = (xs) => xs.length < 2 ? xs.join("") : `${xs.slice(0, -1).join(", ")} and ${xs[xs.length - 1]}`;
+  const cards = new Map();
+  for (const a of AIRLINES) {
     const card = document.createElement("article");
     card.className = "card";
     card.innerHTML = `<div class="sky" role="button" tabindex="0" aria-label="Show the other side"></div><button class="view3d" type="button" aria-label="See it in 3D">3D</button>
-      <div class="about"><div><h2></h2><div class="what"></div></div><div class="look"></div>
+      <div class="about"><div><h2></h2><div class="what"></div></div><div class="paint"></div><div class="looks"></div><div class="look"></div>
+      <div class="channel">The same flights are on <a href="https://ghostflights.tv/" target="_blank" rel="noopener">ghostflights.tv, channel ${a.channel}</a>.</div>
       <button class="times" type="button">Tonight's flights</button></div>`;
-    card.querySelector("h2").textContent = g.airlineName;
-    card.querySelector(".what").textContent = `${g.year} · ${g.types.join(" and ")}`;
-    const [home, ...rest] = g.cities;
+    card.querySelector("h2").textContent = a.name;
+    card.querySelector(".what").textContent = `${a.year} · ${list(a.types)}`;
     const look = card.querySelector(".look");
-    look.append("Look up in ");
-    const b = document.createElement("b");
-    b.textContent = home;
-    look.append(b, rest.length ? `, ${rest.join(", ")}` : "");
-    for (const [from, to, type] of g.nightly) {
+    for (const [from, to, type] of a.nightly ?? []) {
       const n = document.createElement("div");
       n.className = "nightly";
-      n.textContent = `Every night its ${type} flies ${from} to ${to}.`;
+      n.textContent = `Every night its ${type} flies ${from} to ${to}. That's a special flight, so it isn't on ghostflights.tv.`;
       card.querySelector(".about").insertBefore(n, look);
     }
-    card.querySelector(".view3d").addEventListener("click", () => open3D(g));
-    card.querySelector(".times").addEventListener("click", () => openSchedule(g));
-    const sky = card.querySelector(".sky");
+    const shown = a.cities.slice(0, 14), more = a.cities.length - shown.length;
+    look.append("Look up in ");
+    const b = document.createElement("b");
+    b.textContent = shown[0];
+    look.append(b, shown.length > 1 ? `, ${shown.slice(1).join(", ")}` : "", more > 0 ? ` and ${more} more` : "");
+    const sky = card.querySelector(".sky"), paint = card.querySelector(".paint"), chips = card.querySelector(".looks");
+    let at = a.looks[0], side = "left";
     const drawn = {};
-    let side = "left";
     const show = () => {
-      drawn[side] ??= CardDrawing.svg({ ref: g.ref, shape: g.shape, side }) || "";
-      sky.innerHTML = `${drawn[side]}<span class="side">${side === "left" ? "Left" : "Right"} side</span>`;
+      const g = GHOSTS[at];
+      drawn[`${at}/${side}`] ??= CardDrawing.svg({ ref: g.ref, shape: g.shape, side }) || "";
+      sky.innerHTML = `${drawn[`${at}/${side}`]}<span class="side">${side === "left" ? "Left" : "Right"} side</span>`;
+      paint.textContent = `${g.typeName} · ${g.name}`;
+      for (const c of chips.children) c.setAttribute("aria-pressed", String(Number(c.dataset.i) === at));
     };
+    // One chip a look when it has more than one: the type, and the paint where a type wore several (Braniff's colors).
+    const several = (g) => a.looks.filter((i) => GHOSTS[i].type === g.type).length > 1;
+    if (a.looks.length > 1)
+      for (const i of a.looks) {
+        const g = GHOSTS[i], c = document.createElement("button");
+        c.type = "button";
+        c.dataset.i = i;
+        c.textContent = several(g) ? (a.types.length > 1 ? `${g.typeName} · ` : "") + g.name.replace(/^(Flying Colors|Ultra),? /, "") : g.typeName;
+        c.addEventListener("click", () => { at = i; show(); });
+        chips.append(c);
+      }
+    else chips.remove();
+    card.querySelector(".view3d").addEventListener("click", () => open3D(GHOSTS[at]));
+    card.querySelector(".times").addEventListener("click", () => openSchedule(a));
     const flip = () => { side = side === "left" ? "right" : "left"; show(); };
     sky.addEventListener("click", flip);
     sky.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); flip(); } });
     grid.appendChild(card);
+    cards.set(a.code, card);
     show();
   }
 </script>
@@ -225,13 +266,12 @@
   <div class="hint">Drag to turn it · pinch or scroll to zoom</div>
 </dialog>
 <script>
-  // The 3D view, as on /specials: the app's turntable (turntable.html, card_3d.js) in a frame, loaded only when opened;
-  // closing blanks the frame, which frees the model and its WebGL context.
+  // The 3D view, as on v1's page: the app's turntable (turntable.html, card_3d.js) in a frame, loaded only when opened.
   const dialog = document.getElementById("turntable");
   const frame = dialog.querySelector("iframe");
   function open3D(g) {
     dialog.querySelector(".bar h2").textContent = g.airlineName;
-    dialog.querySelector(".bar .what").textContent = `${g.year} · ${g.types.join(" and ")}`;
+    dialog.querySelector(".bar .what").textContent = `${g.year} · ${g.typeName} · ${g.name}`;
     frame.src = `turntable.html?i=${GHOSTS.indexOf(g)}`;
     dialog.showModal();
   }
@@ -250,26 +290,45 @@
   <p class="fine">Takeoff and landing can shift a minute or two with the wind. In between they're right on time.</p>
 </dialog>
 <script>
-  // Each card's flights for the nights ahead (D299): the nightly files the app reads, worked out the way the app flies
-  // them (ghost_path.js), with the towns each passes near.
+  // Each airline's flights for the nights ahead (D299, v2): the nightly files the app reads (ghosts/v2/), with their
+  // flight numbers and the times they flew, worked out the way the app flies them (ghost_path.js) with the towns each
+  // passes near.
   const sheet = document.getElementById("schedule");
   const clock = new Intl.DateTimeFormat([], { hour: "numeric", minute: "2-digit" });
   const zone = new Intl.DateTimeFormat([], { timeZoneName: "short" }).formatToParts(new Date()).find((p) => p.type === "timeZoneName")?.value;
-  const TYPE = { MD82: "MD-82", B722: "727-200", B752: "757-200", B733: "737-300", DC10: "DC-10" };
   const POINTS = ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"];
   const point = (deg) => POINTS[Math.round(((deg % 360) + 360) % 360 / 45) % 8];
   const city = (code) => CITY[code] ?? code;
+  // A timetable's own clock ("22:40") as people say it: "10:40 PM".
+  const thenClock = new Intl.DateTimeFormat([], { hour: "numeric", minute: "2-digit", timeZone: "UTC" });
+  const timetable = (hhmm) => { const [h, m] = hhmm.split(":").map(Number); return thenClock.format(new Date(Date.UTC(2000, 0, 1, h, m))); };
   let nights;
-  // The nights listed, each night's file: from skyarium.app, or GHOST_NIGHTS when a test page sets it.
+  // Tonight and the next two nights, each worked out from Ghostflights' bank by the app's rules (ghost_bank.js): from
+  // skyarium.app, or GHOST_BANK when a test page sets it. Tonight is the evening of the reader's date (before 7 AM,
+  // last night's).
   function loadNights() {
-    nights ??= globalThis.GHOST_NIGHTS
-      ? Promise.resolve(globalThis.GHOST_NIGHTS)
-      : fetch("../ghosts/v1/index.json").then((r) => r.json()).then((index) =>
-          Promise.all(index.nights.map((n) => fetch(`../ghosts/v1/${n}.json`).then((r) => r.json()))));
+    nights ??= (globalThis.GHOST_BANK ? Promise.resolve(globalThis.GHOST_BANK) : fetch("../ghosts/v2/bank.json").then((r) => r.json()))
+      .then((bank) => {
+        const now = new Date(), local = new Date(now.getTime() - (now.getHours() < 7 ? 86_400_000 : 0));
+        const first = Math.floor(Date.UTC(local.getFullYear(), local.getMonth(), local.getDate()) / 86_400_000);
+        return [0, 1, 2].map((k) => ({ night: new Date((first + k) * 86_400_000).toISOString().slice(0, 10), flights: GhostBank.night(bank, first + k) }));
+      });
     return nights;
   }
+  const ahead = (all) => all.filter((n) => n.flights.some((f) => Date.parse(f.arrive) + 30 * 60_000 > Date.now()));
+  const weekday = new Intl.DateTimeFormat([], { weekday: "long", timeZone: "UTC" });
+  const nightName = (night) => `${weekday.format(new Date(`${night.night}T12:00:00Z`))} night`;
 
-  // Where to look: a handful of towns it passes near, spread along the way, the nearest and biggest first.
+  // Tonight's count, up top: everyone flies every night.
+  loadNights().then((all) => {
+    const night = ahead(all)[0];
+    if (!night) return;
+    const p = document.getElementById("tonight");
+    p.innerHTML = `${nightName(night)}: <b></b> ghosts from all fourteen airlines.`;
+    p.querySelector("b").textContent = night.flights.length.toLocaleString();
+    p.hidden = false;
+  }).catch(() => {});
+
   function stops(f, path) {
     const from = f.fromPos, to = f.toPos, km = (a, b) => GhostPath.distance(a, b) / 1000;
     const lats = [from[0], to[0]], lons = [from[1], to[1]];
@@ -319,12 +378,13 @@
     return box;
   }
 
-  function showNight(g, night, list) {
+  function showNight(a, night, list) {
     list.replaceChildren();
-    const flights = night.flights.filter((f) => f.scheme === g.id).map((f) => ({ f, path: GhostPath(f) }))
-      .sort((a, b) => a.path.liftoff - b.path.liftoff);
+    const flights = night.flights.filter((f) => f.airline === a.code).map((f) => ({ f, path: GhostPath(f) }))
+      .sort((x, y) => x.path.liftoff - y.path.liftoff);
+    sheet.querySelector("h2").textContent = `${a.name} · ${flights.length} ${flights.length === 1 ? "flight" : "flights"}`;
     if (!flights.length) {
-      list.innerHTML = `<li class="empty">No flights this night.</li>`;
+      list.innerHTML = `<li class="off">No ${a.short} flights this night. Its timetable has none in these hours on this day.</li>`;
       return;
     }
     const now = new Date();
@@ -332,12 +392,17 @@
       const li = document.createElement("li");
       const done = now > path.gone, flying = now >= path.appears && !done;
       if (done) li.className = "done";
-      li.innerHTML = `<button class="flight" type="button" aria-expanded="false"><span class="t"></span><span><span class="r"></span><span class="sub"></span></span></button>`;
+      li.innerHTML = `<button class="flight" type="button" aria-expanded="false"><span class="t"></span><span><span class="r"><span class="no"></span> · <span class="cities"></span></span><span class="sub"></span><span class="sub when"></span></span></button>`;
       li.querySelector(".t").textContent = clock.format(path.liftoff);
-      li.querySelector(".r").textContent = `${city(f.from)} → ${city(f.to)}`;
-      const sub = li.querySelector(".sub");
-      sub.textContent = `${TYPE[f.type] ?? f.type} ${f.registration} · ${done ? "landed" : "lands"} ${clock.format(path.touchdown)}`;
-      if (flying) sub.insertAdjacentHTML("beforeend", ` · <span class="now">in the air now</span>`);
+      li.querySelector(".no").textContent = f.number ? `${f.short} ${f.number}` : `${f.short} ${f.typeName}`;
+      li.querySelector(".cities").textContent = `${city(f.from)} → ${city(f.to)}`;
+      const paint = (CARD_DATA.liveries.liveries[f.scheme]?.name ?? "").replace(/ \([^)]*\)$/, "");
+      li.querySelector(".sub").textContent = [f.typeName + (f.registration ? ` ${f.registration}` : ""), paint].filter(Boolean).join(" · ");
+      const when = li.querySelector(".when");
+      when.textContent = f.trip
+        ? `A special flight, every night · ${done ? "landed" : "lands"} ${clock.format(path.touchdown)}`
+        : `Flew at ${timetable(f.departLocal)} ${city(f.from)} time in ${f.year} · ${done ? "landed" : "lands"} ${clock.format(path.touchdown)}`;
+      if (flying) when.insertAdjacentHTML("beforeend", ` · <span class="now">in the air now</span>`);
       const button = li.querySelector(".flight");
       button.addEventListener("click", () => {
         const open = li.querySelector(".way");
@@ -349,8 +414,8 @@
     }
   }
 
-  async function openSchedule(g) {
-    sheet.querySelector("h2").textContent = `${g.airlineName} flights`;
+  async function openSchedule(a) {
+    sheet.querySelector("h2").textContent = `${a.name} flights`;
     sheet.querySelector(".zone").textContent = `Times are in your time zone${zone ? ` (${zone})` : ""}`;
     const tabs = sheet.querySelector(".nights"), list = sheet.querySelector("ul");
     tabs.replaceChildren();
@@ -358,27 +423,25 @@
     sheet.showModal();
     let all;
     try {
-      all = await loadNights();
+      all = ahead(await loadNights());
     } catch {
       nights = undefined;
       list.innerHTML = `<li class="empty">Couldn't load the schedule. Try again in a bit.</li>`;
       return;
     }
-    // Nights not over yet, each named by its evening: "Monday night".
-    const ahead = all.filter((n) => n.flights.some((f) => Date.parse(f.arrive) + 30 * 60_000 > Date.now()));
-    const day = new Intl.DateTimeFormat([], { weekday: "long", timeZone: "UTC" });
-    for (const [i, night] of ahead.entries()) {
+    const first = 0;
+    for (const [i, night] of all.entries()) {
       const b = document.createElement("button");
       b.type = "button";
-      b.textContent = `${day.format(new Date(`${night.night}T12:00:00Z`))} night`;
+      b.textContent = nightName(night);
       b.addEventListener("click", () => {
         for (const o of tabs.children) o.setAttribute("aria-pressed", String(o === b));
-        showNight(g, night, list);
+        showNight(a, night, list);
       });
-      b.setAttribute("aria-pressed", String(i === 0));
+      b.setAttribute("aria-pressed", String(i === first));
       tabs.append(b);
     }
-    if (ahead.length) showNight(g, ahead[0], list);
+    if (all.length) showNight(a, all[first], list);
     else list.innerHTML = `<li class="empty">No flights scheduled yet. Check back tonight.</li>`;
   }
   sheet.querySelector(".close").addEventListener("click", () => sheet.close());

@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Special liveries flying in the US and Canada · Skyarium</title>
+<meta name="description" content="Search 42 special, retro and alliance liveries flying in the US and Canada by airline, name, aircraft or tail number. See each one drawn by Skyarium and the tails that wear it.">
+<link rel="canonical" href="https://skyarium.app/liveries/specials/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Skyarium">
+<meta property="og:title" content="Special liveries flying in the US and Canada">
+<meta property="og:description" content="Search 42 special, retro and alliance liveries flying in the US and Canada by airline, name, aircraft or tail number. See each one drawn by Skyarium and the tails that wear it.">
+<meta property="og:url" content="https://skyarium.app/liveries/specials/">
+<meta property="og:image" content="https://skyarium.app/liveries/specials/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="apple-itunes-app" content="app-id=6826740904">
+<meta name="theme-color" content="#1b1838">
+<link rel="icon" href="/assets/favicon-64.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root { --night: #121430; --deep: #1b1838; --glow: #f7c98b; --mint: #4fd1b0; --ink: #f3ede4; --muted: #b9b2c6;
+    --line: rgba(243, 237, 228, 0.12); --sky: linear-gradient(180deg, #5f5d8c 0%, #8a7596 45%, #c4918a 80%, #d9a585 100%);
+    color-scheme: dark; }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  body { margin: 0; background: var(--night); color: var(--ink);
+    font: 17px/1.6 Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; }
+  a { color: var(--glow); }
+  img { max-width: 100%; height: auto; }
+  h1, h2, h3 { font-family: Fraunces, Georgia, serif; font-weight: 650; line-height: 1.15; margin: 0; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+  header { background: linear-gradient(180deg, #121430 0%, #2a2350 60%, #3b2c55 100%); padding: 22px 0 44px; }
+  .crumbs { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; font-size: 15px; color: var(--muted); }
+  .crumbs a { color: var(--ink); text-decoration: none; font-weight: 600; }
+  .crumbs a:hover { text-decoration: underline; }
+  .home { display: inline-flex; align-items: center; gap: 10px; }
+  .home img { width: 28px; height: 28px; border-radius: 7px; }
+  .eyebrow { margin-top: 48px; color: var(--mint); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; font-size: 13px; }
+  h1 { font-size: clamp(36px, 6vw, 58px); margin: 10px 0 8px; letter-spacing: -0.01em; }
+  .aside { font-family: Fraunces, Georgia, serif; font-size: clamp(19px, 2.6vw, 24px); color: var(--glow); margin: 0; }
+  .lead { color: #e1d8e6; font-size: 19px; max-width: 660px; margin: 8px 0 0; }
+  main { padding: 8px 0 64px; background: linear-gradient(180deg, #3b2c55 0, var(--night) 360px); }
+  main h2 { font-size: 22px; margin: 0 0 12px; }
+
+  .sides { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .sides figure { margin: 0; }
+  .sky { background: var(--sky); border-radius: 6px; aspect-ratio: 2 / 1; display: flex; align-items: center; justify-content: center; }
+  .sky img { display: block; width: 92%; max-height: 86%; object-fit: contain; }
+  figcaption { color: var(--muted); font-size: 14px; margin-top: 8px; }
+  .turn3d { margin: 18px 0 0; }
+  .turn { padding: 9px 18px; border-radius: 999px; border: 1px solid #f3ede455; background: rgba(255, 255, 255, 0.06);
+    color: var(--ink); font: 600 15px Inter, sans-serif; cursor: pointer; }
+  .turn:hover, .turn:focus-visible { border-color: var(--glow); outline: none; }
+
+  /* The turntable (as on /liveries/): the app's 3D model, baked, in a frame over the card's sky. */
+  dialog { width: min(960px, 100vw - 32px); height: min(620px, 100svh - 32px); padding: 0; border: 0; border-radius: 28px;
+    background: var(--sky); color: var(--ink); box-shadow: 0 40px 120px #000c; overflow: hidden; }
+  dialog::backdrop { background: #0b0c18cc; backdrop-filter: blur(4px); }
+  dialog iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  dialog .bar { position: absolute; left: 0; right: 0; top: 0; display: flex; justify-content: space-between; align-items: start;
+    padding: 18px 20px; pointer-events: none; }
+  dialog .bar h2 { font-size: 22px; text-shadow: 0 1px 8px #0006; margin: 0; }
+  dialog .bar .what { font-size: 15px; color: #f3ede4cc; }
+  dialog .close { pointer-events: auto; width: 40px; height: 40px; border-radius: 50%; border: 0; background: #0b0c18b3;
+    color: var(--ink); font-size: 22px; line-height: 1; cursor: pointer; }
+  dialog .hint { position: absolute; left: 0; right: 0; bottom: 16px; text-align: center; font-size: 14px; color: #f3ede4cc;
+    pointer-events: none; }
+  .cols { display: grid; grid-template-columns: 1fr; max-width: 720px; gap: 36px; margin-top: 44px; padding-top: 36px; border-top: 1px solid var(--line); }
+  .about p { margin: 0 0 14px; color: #e1d8e6; }
+  .lic { color: var(--muted); font-size: 15px; }
+  dl { margin: 0 0 30px; display: grid; gap: 8px; }
+  dl div { display: grid; grid-template-columns: 120px 1fr; gap: 12px; border-bottom: 1px solid var(--line); padding-bottom: 8px; }
+  dt { color: var(--muted); font-size: 15px; }
+  dd { margin: 0; }
+  .tails { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+  .tails li { display: grid; gap: 2px; border-left: 2px solid var(--mint); padding-left: 12px; }
+  .tails .reg { font-weight: 600; letter-spacing: 0.02em; }
+  .tails .type, .tails .where { color: var(--muted); font-size: 15px; }
+  .tails .where b { color: var(--ink); font-weight: 600; }
+  .tails .none { font-style: italic; }
+  .source { color: var(--muted); font-size: 15px; max-width: 720px; margin: 36px 0 0; }
+  .more { margin-top: 44px; padding-top: 32px; border-top: 1px solid var(--line); }
+  .more ul { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px 26px; }
+  .more a { font-weight: 600; text-decoration: none; }
+  .more a:hover { text-decoration: underline; }
+
+  .honest { color: var(--muted); font-size: 15px; margin: 18px 0 0; max-width: 660px; }
+  header .honest { color: #d6cde0; }
+  .back { margin: 32px 0 0; }
+  .back a { font-weight: 600; text-decoration: none; }
+  .back a:hover { text-decoration: underline; }
+  .find { display: grid; gap: 8px; margin-top: 28px; max-width: 560px; }
+  .find label { color: #e1d8e6; font-size: 15px; font-weight: 600; }
+  .find input { width: 100%; padding: 12px 14px; border-radius: 6px; border: 1px solid #f3ede455; background: #0b0c1899;
+    color: var(--ink); font: 17px Inter, sans-serif; }
+  .find input:focus { outline: 2px solid var(--glow); outline-offset: 1px; border-color: transparent; }
+  .find input::placeholder { color: #9a93a8; }
+  .count { color: var(--muted); font-size: 15px; margin: 28px 0 16px; }
+  .results { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+  .results > li { display: grid; grid-template-columns: minmax(180px, 240px) 1fr; gap: 0 20px; align-items: center;
+    border: 1px solid var(--line); border-radius: 8px; background: rgba(255, 255, 255, 0.045); overflow: hidden; }
+  .results > li > a { display: grid; grid-template-columns: subgrid; grid-column: 1 / 2; text-decoration: none; color: inherit; }
+  .results > li > a:focus-visible { outline: 2px solid var(--glow); outline-offset: -2px; }
+  .results .sky { border-radius: 0; }
+  .results .about { padding: 10px 14px 12px; }
+  .results h3 { font-size: 19px; }
+  .results .what { color: var(--muted); font-size: 14px; }
+  .rtails { list-style: none; margin: 0; padding: 12px 16px 12px 0; display: grid; gap: 4px; font-size: 15px; }
+  .rtails .reg { font-weight: 600; letter-spacing: 0.02em; }
+  .rtails .type, .rtails .last { color: var(--muted); font-size: 14px; margin-left: 6px; }
+  .rtails .hit .reg { color: var(--glow); }
+  @media (max-width: 640px) { .results > li { grid-template-columns: 1fr; } .results > li > a { grid-column: 1; } .rtails { padding: 0 14px 14px; } }
+  .jump { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 28px; }
+  .jump a { font-weight: 600; text-decoration: none; }
+  .jump a:hover { text-decoration: underline; }
+  .airline { padding-top: 36px; }
+  .airline h2 { font-size: 28px; margin-bottom: 18px; }
+  .airline h2 span { font: 500 16px Inter, sans-serif; color: var(--muted); margin-left: 6px; }
+  .grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .grid a { display: block; height: 100%; text-decoration: none; color: inherit; border: 1px solid var(--line); border-radius: 8px;
+    background: rgba(255, 255, 255, 0.045); overflow: hidden; transition: border-color 0.2s; }
+  .grid a:hover, .grid a:focus-visible { border-color: #f7c98b88; outline: none; }
+  .grid .sky { border-radius: 0; }
+  .grid .about { padding: 12px 16px 14px; }
+  .grid h3 { font-size: 19px; }
+  .grid .what, .grid .regs { color: var(--muted); font-size: 14px; }
+  .grid .regs { margin-top: 4px; letter-spacing: 0.02em; }
+  .empty { color: var(--muted); text-align: center; padding: 40px 0; }
+
+  .app { text-align: center; padding: 64px 0 72px; border-top: 1px solid var(--line); }
+  .app h2 { font-size: clamp(28px, 4.4vw, 38px); margin-bottom: 12px; }
+  .app p { color: var(--muted); margin: 0 auto 26px; max-width: 540px; }
+  .store img { height: 54px; width: auto; }
+  footer { border-top: 1px solid var(--line); padding: 36px 0 56px; color: var(--muted); font-size: 14px; }
+  footer p { margin: 0 0 10px; max-width: 720px; }
+
+
+  @media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 760px) {
+    .sides, .cols { grid-template-columns: 1fr; }
+    .cols { gap: 32px; }
+    .eyebrow { margin-top: 36px; }
+  }
+  @media (max-width: 560px) { .grid { grid-template-columns: 1fr; } }
+  @media (max-width: 420px) { .wrap { padding: 0 16px; } dl div { grid-template-columns: 104px 1fr; } }
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Liveries","item":"https://skyarium.app/liveries/"},{"@type":"ListItem","position":2,"name":"Special liveries","item":"https://skyarium.app/liveries/specials/"}]}</script>
+</head>
+<body class="index">
+<header>
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb"><a class="home" href="/"><img src="/assets/apple-touch-icon.png" alt="" width="28" height="28">Skyarium</a><span>›</span><a href="/liveries/">Liveries</a></nav>
+    <div class="eyebrow">Special liveries</div>
+    <h1>Find a special livery</h1>
+    <p class="lead">The special paint jobs flying in the US and Canada that Skyarium draws. That's 42 liveries on 59 jets and most of them fly on just one plane.</p>
+    <form class="find" role="search" action="./" onsubmit="return false">
+      <label for="q">Search by airline, livery, aircraft or tail number</label>
+      <input id="q" name="q" type="search" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="N917NN, heritage, 737 MAX, JetBlue">
+    </form>
+    <p class="honest">Our livery data is our own project and it isn't complete. The tails listed are the ones we've matched to each livery in our own data. It's not a full registry.</p>
+  </div>
+</header>
+<main>
+  <div class="wrap">
+    <div id="results" hidden>
+      <p class="count" id="count" role="status" aria-live="polite"></p>
+      <ul class="results" id="list"></ul>
+    </div>
+    <div id="all">
+      <nav class="jump" aria-label="Airlines"><a href="#air-canada">Air Canada</a><a href="#air-transat">Air Transat</a><a href="#alaska">Alaska</a><a href="#allegiant">Allegiant</a><a href="#american">American</a><a href="#delta">Delta</a><a href="#hawaiian">Hawaiian</a><a href="#jetblue">JetBlue</a><a href="#southwest">Southwest</a><a href="#sun-country">Sun Country</a><a href="#united">United</a><a href="#westjet">WestJet</a></nav>
+      <section class="airline" id="air-canada">
+        <h2>Air Canada <span>1</span></h2>
+        <ul class="grid">
+        <li><a href="air-canada-trans-canada-air-lines/">
+          <div class="sky"><img src="thumbs/air-canada-trans-canada-air-lines.webp" width="560" height="157" alt="" loading="lazy" decoding="async"></div>
+          <div class="about"><h3>Trans-Canada Air Lines retro</h3><div class="what">Air Canada · A220-300 · since February 2021</div>
+          <div class="regs">C-GNBN</div></div>
+        </a></li>
+        </ul>
+      </section>
+      <section class="airline" id="air-transat">
+        <h2>Air Transat <span>1</span></h2>
+        <ul class="grid">
+        <li><a href="air-transat-cf-montreal/">
+          <div class="sky"><img src="thumbs/air-transat-cf-montreal.webp" width="560" height="146" alt="" loading="lazy" decoding="async"></div>
+          <div class="about"><h3>CF Montréal</h3><div class="what">Air Transat · A321neo · since September 2024</div>
+          <div class="regs">C-GOKE · C-GOKG</div></div>
+        </a></li>
+        </ul>
+      </section>
+      <section class="airline" id="alaska">
+        <h2>Alaska Airlines <span>5</span></h2>
+        <ul class="grid">
+        <li><a href="alaska-honoring-those-who-serve/">
+          <div class="sky"><img src="thumbs/alaska-honoring-those-who-serve.webp" width="560" height="170" alt="" loading="lazy" decoding="async"></div>
+          <div class="about"><h3>Honoring Those Who Serve</h3><div class="what">Alaska · 737 MAX 8 · since June 2024</div>
+          <div class="regs">N265AK · N570AS · N651QX and 1 more</div></div>
+        </a></li>
+        <li><a href="alaska-horizon-retro/">
+          <div class="sky"><img src="thumbs/alaska-horizon-retro.webp" width="560" height="166" alt="" loading="lazy" decoding="async"></div>
+          <div class="about"><h3>Horizon Air retro</h3><div class="what">Alaska · E175 · since November 2022</div>
+          <div class="regs">N652MK</div></div>
+        </a></li>
+        <li><a href="alaska-oneworld/">
+          <div class="sky"><img src="thumbs/alaska-oneworld.webp" width="560" height="168" alt="" loading="lazy" decoding="async"></div>
+          <div class="about"><h3>oneworld</h3><div class="what">Alaska · 737-900 · since 2021</div>
+          <div class="regs">N486AS · N487AS</div></div>
+        </a></li>
+        <li><a href="alaska-seattle-kraken/">
+          <div class="sky"><img src="thumbs/alaska-seattle-kraken.webp" width="560" height="160" alt="" loading="lazy" decoding="async"></div>
+          <div class="about"><h3>Seattle Kraken</h3><div class="what">Alaska · 737 MAX 9 · since October 2024</div>
+          <div class="regs">N933AK</div></div>
+        </a></li>
+        <li><a href="alaska-seattle-mariners/">
+          <div class="sky"><img src="thumbs/alaska-seattle-mariners.webp" width="560" height="160" alt="" loading="lazy" decoding="async"></div>
+          <div class="about"><h3>Seattle Mariners</h3><div class="what">Alaska · 737 MAX 9 · since September 2024</div>
+          <div class="regs">N710AL</div></div>
+        </a></li>
+        </ul>
+      </section>
+      <section class="airline" id="allegiant">
+        <h2>Allegiant Air <span>1</span></h2>
+        <ul class="grid">
+        <li><a href="allegiant-insomniac-edc/">
+          <div class="sky"><img src="thumbs/allegiant-insomniac-edc.webp" width="560" height="165" alt="" loading="lazy" decoding="async"></div>
+          <div class="about"><h3>Insomniac and EDC</h3><div class="what">Allegiant · A320</div>
+          <div class="regs">N198NV</div></div>
+        </a></li>
+        </ul>
+      </section>
+      <section class="airline" id="american">
+        <h2>American Airlines <span>10</span></h2>
+        <ul class="grid">
+        <li><a href="american-aircal-heritage/">
+          <div class="sky"><img src="thumbs/american-aircal-heritage.webp" width="560" height="178" alt="" loading="lazy" decoding="async"></div>
+          <div class="about"><h3>AirCal heritage</h3><div class="what">American · 737-800 · since 2014</div>
+          <div class="regs">N917NN</div></div>
+        </a></li>
+        <li><a href="american-allegheny-heritage/">
+          <div class="sky"><img src="thumbs/american-allegheny-heritage.webp" width="560" height="143" alt="" loading="lazy" decoding="async"></div>
+          <div class="about"><h3>Allegheny heritage</h3><div class="what">American · A321 · since October 2023</div>
+          <div class="regs">N579UW</div></div>
+        </a></li>
+        <li><a href="american-america-west-heritage/">
+          <div class="sky"><img src="thumbs/american-america-west-heritage.webp" width="560" height="143" alt="" loading="lazy" decoding="async"></div>
+          <div class="about"><h3>America West heritage</h3><div class="what">American · A321 · since October 2023</div>
+          <div class="regs">N580UW</div></div>
+        </a></li>
+        <li><a href="american-flagship/">
+          <div class="sky"><img src="thumbs/american-flagship.webp" width="560" height="138" alt="" loading="lazy" decoding="async"></div>
+          <div class="about"><h3>Flagship</h3><div class="what">American · 777-300ER · since October 2025</div>
+          <div class="regs">N735AT</div></div>
+        </a></li>
+        <li><a href="american-piedmont-heritage/">
+          <div class="sky"><img src="thumbs/american-piedmont-heritage.webp" width="560" height="143" alt="" loading="lazy" decoding="async"></div>
+          <div class="about"><h3>Piedmont heritage</h3><div class="what">American · A321 · since September 2023</div>
+          <div class="regs">N581UW</div></div>
+        </a></li>
+        <li><a href="american-psa-heritage/">
+          <div class="sky"><img src="thumbs/american-psa-heritage.webp" width="560" height="143" alt="" loading="lazy" decoding="async"></div>
+          <div class="about"><h3>PSA heritage</h3><div class="what">American · A321 · since September 2023</div>
+          <div class="regs">N582UW</div></div>
+        </a></li>
+        <li><a href="american-reno-air-heritage/">
+          <div class="sky"><img src="thumbs/american-reno-air-heritage.webp" width="560" height="178" alt="" loading="lazy" decoding="async"></div>
+          <div class="about"><h3>Reno Air heritage</h3><div class="what">American · 737-800 · since 2014</div>
+          <div class="regs">N916NN</div></div>
+        </a></li>
+        <li><a href="american-tri-color-1968/">
+          <div class="sky"><img src="thumbs/american-tri-color-1968.webp" width="560" height="178" alt="" loading="lazy" decoding="async"></div>
+          <div class="about"><h3>Tri-color</h3><div class="what">American · 737-800 · since 2013</div>
+          <div class="regs">N921NN</div></div>
+        </a></li>
+        <li><a href="american-twa-heritage/">
+          <div class="sky"><img src="thumbs/american-twa-heritage.webp" width="560" height="178" alt="" loading="lazy" decoding="async"></div>
+          <div class="about"><h3>TWA heritage</h3><div class="what">American · 737-800 · since 2014</div>
+          <div class="regs">N915NN</div></div>
+        </a></li>
+        <li><a href="american-us-airways-heritage/">
+          <div class="sky"><img src="thumbs/american-us-airways-heritage.webp" width="560" height="143" alt="" loading="lazy" decoding="async"></div>
+          <div class="about"><h3>US Airways heritage</h3><div class="what">American · A321 · since 2015</div>
+          <div class="regs">N578UW</div></div>
+        </a></li>
+        </ul>
+      </section>
+      <section class="airline" id="delta">
+        <h2>Delta Air Lines <span>1</span></h2>
+        <ul class="grid">
+        <li><a href="delta-100-years/">
+          <div class="sky"><img src="thumbs/delta-100-years.webp" width="560" height="146" alt="" loading="lazy" decoding="async"></div>
+          <div class="about"><h3>Delta 100 Years</h3><div class="what">Delta · A321neo · since March 2025</div>
+          <div class="regs">N527DN · N589DT</div></div>
+        </a></li>
+        </ul>
+      </section>
+      <section class="airline" id="hawaiian">
+        <h2>Hawaiian Airlines <span>1</span></h2>
+        <ul class="grid">
+        <li><a href="hawaiian-oneworld/">
+          <div class="sky"><img src="thumbs/hawaiian-oneworld.webp" width="560" height="156" alt="" loading="lazy" decoding="async"></div>
+          <div class="about"><h3>oneworld</h3><div class="what">Hawaiian · A330-200 · since June 2026</div>
+          <div class="regs">N375HA</div></div>
+        </a></li>
+        </ul>
+      </section>
+      <section class="airline" id="jetblue">
+        <h2>JetBlue <span>6</span></h2>
+        <ul class="grid">
+        <li><a href="jetblue-blue-bravest/">
+          <div class="sky"><img src="thumbs/jetblue-blue-bravest.webp" width="560" height="165" alt="" loading="lazy" decoding="async"></div>
+          <div class="about"><h3>Blue Bravest</h3><div class="what">JetBlue · A320 · since 2012</div>
+          <div class="regs">N615JB</div></div>
+        </a></li>
+        <li><a href="jetblue-blue-finest/">
+          <div class="sky"><img src="thumbs/jetblue-blue-finest.webp" width="560" height="165" alt="" loading="lazy" decoding="async"></div>
+          <div class="about"><h3>Blue Finest</h3><div class="what">JetBlue · A320 · since 2014</div>
+          <div class="regs">N531JL</div></div>
+        </a></li>
+        <li><a href="jetblue-boston-bruins/">
+          <div class="sky"><img src="thumbs/jetblue-boston-bruins.webp" width="560" height="165" alt="" loading="lazy" decoding="async"></div>
+          <div class="about"><h3>Boston Bruins</h3><div class="what">JetBlue · A320 · since 2023</div>
+          <div class="regs">N632JB</div></div>
+        </a></li>
+        <li><a href="jetblue-boston-celtics/">
+          <div class="sky"><img src="thumbs/jetblue-boston-celtics.webp" width="560" height="165" alt="" loading="lazy" decoding="async"></div>
+          <div class="about"><h3>Boston Celtics</h3><div class="what">JetBlue · A320 · since 2018</div>
+          <div class="regs">N595JB</div></div>
+        </a></li>
+        <li><a href="jetblue-new-york-jets/">
+          <div class="sky"><img src="thumbs/jetblue-new-york-jets.webp" width="560" height="165" alt="" loading="lazy" decoding="async"></div>
+          <div class="about"><h3>New York Jets</h3><div class="what">JetBlue · A320 · since September 2025</div>
+          <div class="regs">N746JB</div></div>
+        </a></li>
+        <li><a href="jetblue-vets-in-blue/">
+          <div class="sky"><img src="thumbs/jetblue-vets-in-blue.webp" width="560" height="165" alt="" loading="lazy" decoding="async"></div>
+          <div class="about"><h3>Vets in Blue</h3><div class="what">JetBlue · A320 · since 2014</div>
+          <div class="regs">N775JB</div></div>
+        </a></li>
+        </ul>
+      </section>
+      <section class="airline" id="southwest">
+        <h2>Southwest Airlines <span>10</span></h2>
+        <ul class="grid">
+        <li><a href="southwest-arizona-one/">
+          <div class="sky"><img src="thumbs/southwest-arizona-one.webp" width="560" height="209" alt="" loading="lazy" decoding="async"></div>
+          <div class="about"><h3>Arizona One</h3><div class="what">Southwest · 737-700</div>
+          <div class="regs">N955WN</div></div>
+        </a></li>
+        <li><a href="southwest-colorado-one/">
+          <div class="sky"><img src="thumbs/southwest-colorado-one.webp" width="560" height="178" alt="" loading="lazy" decoding="async"></div>
+          <div class="about"><h3>Colorado One</h3><div class="what">Southwest · 737-800</div>
+          <div class="regs">N8690A</div></div>
+        </a></li>
+        <li><a href="southwest-freedom-one/">
+          <div class="sky"><img src="thumbs/southwest-freedom-one.webp" width="560" height="178" alt="" loading="lazy" decoding="async"></div>
+          <div class="about"><h3>Freedom One</h3><div class="what">Southwest · 737-800 · since 2021</div>
+          <div class="regs">N500WR</div></div>
+        </a></li>
+        <li><a href="southwest-liberty-one/">
+          <div class="sky"><img src="thumbs/southwest-liberty-one.webp" width="560" height="170" alt="" loading="lazy" decoding="async"></div>
+          <div class="about"><h3>Liberty One</h3><div class="what">Southwest · 737 MAX 8 · since April 2026</div>
+          <div class="regs">N8719Q</div></div>
+        </a></li>
+        <li><a href="southwest-lone-star-one/">
+          <div class="sky"><img src="thumbs/southwest-lone-star-one.webp" width="560" height="178" alt="" loading="lazy" decoding="async"></div>
+          <div class="about"><h3>Lone Star One</h3><div class="what">Southwest · 737-800 · since 2024</div>
+          <div class="regs">N8660A</div></div>
+        </a></li>
+        <li><a href="southwest-maryland-one/">
+          <div class="sky"><img src="thumbs/southwest-maryland-one.webp" width="560" height="209" alt="" loading="lazy" decoding="async"></div>
+          <div class="about"><h3>Maryland One</h3><div class="what">Southwest · 737-700 · since 2005</div>
+          <div class="regs">N214WN</div></div>
+        </a></li>
+        <li><a href="southwest-nevada-one/">
+          <div class="sky"><img src="thumbs/southwest-nevada-one.webp" width="560" height="178" alt="" loading="lazy" decoding="async"></div>
+          <div class="about"><h3>Nevada One</h3><div class="what">Southwest · 737-800 · since May 2023</div>
+          <div class="regs">N8646B</div></div>
+        </a></li>
+        <li><a href="southwest-new-mexico-one/">
+          <div class="sky"><img src="thumbs/southwest-new-mexico-one.webp" width="560" height="178" alt="" loading="lazy" decoding="async"></div>
+          <div class="about"><h3>New Mexico One</h3><div class="what">Southwest · 737-800 · since July 2023</div>
+          <div class="regs">N8655D</div></div>
+        </a></li>
+        <li><a href="southwest-tennessee-one/">
+          <div class="sky"><img src="thumbs/southwest-tennessee-one.webp" width="560" height="178" alt="" loading="lazy" decoding="async"></div>
+          <div class="about"><h3>Tennessee One</h3><div class="what">Southwest · 737-800</div>
+          <div class="regs">N8555Z</div></div>
+        </a></li>
+        <li><a href="southwest-herbert-d-kelleher/">
+          <div class="sky"><img src="thumbs/southwest-herbert-d-kelleher.webp" width="560" height="170" alt="" loading="lazy" decoding="async"></div>
+          <div class="about"><h3>The Herbert D. Kelleher</h3><div class="what">Southwest · 737 MAX 8 · since 2022</div>
+          <div class="regs">N871HK</div></div>
+        </a></li>
+        </ul>
+      </section>
+      <section class="airline" id="sun-country">
+        <h2>Sun Country Airlines <span>1</span></h2>
+        <ul class="grid">
+        <li><a href="sun-country-retro-1994/">
+          <div class="sky"><img src="thumbs/sun-country-retro-1994.webp" width="560" height="178" alt="" loading="lazy" decoding="async"></div>
+          <div class="about"><h3>1994 retro</h3><div class="what">Sun Country · 737-800 · since May 2026</div>
+          <div class="regs">N826SY</div></div>
+        </a></li>
+        </ul>
+      </section>
+      <section class="airline" id="united">
+        <h2>United Airlines <span>4</span></h2>
+        <ul class="grid">
+        <li><a href="united-continental-retro/">
+          <div class="sky"><img src="thumbs/united-continental-retro.webp" width="560" height="168" alt="" loading="lazy" decoding="async"></div>
+          <div class="about"><h3>Continental retro</h3><div class="what">United · 737-900 · since 2020</div>
+          <div class="regs">N75435</div></div>
+        </a></li>
+        <li><a href="united-friend-ship/">
+          <div class="sky"><img src="thumbs/united-friend-ship.webp" width="560" height="165" alt="" loading="lazy" decoding="async"></div>
+          <div class="about"><h3>Friend Ship</h3><div class="what">United · A320 · since 2010</div>
+          <div class="regs">N475UA</div></div>
+        </a></li>
+        <li><a href="united-star-alliance/">
+          <div class="sky"><img src="thumbs/united-star-alliance.webp" width="560" height="178" alt="" loading="lazy" decoding="async"></div>
+          <div class="about"><h3>Star Alliance</h3><div class="what">United · 737-800 · since 2019</div>
+          <div class="regs">N14120 · N14219 · N218UA and 8 more</div></div>
+        </a></li>
+        <li><a href="united-stars-and-stripes/">
+          <div class="sky"><img src="thumbs/united-stars-and-stripes.webp" width="560" height="134" alt="" loading="lazy" decoding="async"></div>
+          <div class="about"><h3>Stars and Stripes</h3><div class="what">United · 787-10 · since June 2026</div>
+          <div class="regs">N78285 · N91007</div></div>
+        </a></li>
+        </ul>
+      </section>
+      <section class="airline" id="westjet">
+        <h2>WestJet <span>1</span></h2>
+        <ul class="grid">
+        <li><a href="westjet-royalton/">
+          <div class="sky"><img src="thumbs/westjet-royalton.webp" width="560" height="170" alt="" loading="lazy" decoding="async"></div>
+          <div class="about"><h3>Royalton Luxury Resorts</h3><div class="what">WestJet · 737 MAX 8</div>
+          <div class="regs">C-GMXB</div></div>
+        </a></li>
+        </ul>
+      </section>
+    </div>
+    <p class="source">Every drawing is built from the plane's measured shape and its scheme in Open Liveries, checked against dated photos. Licensed artwork like Disney's isn't drawn. Government and military jets are left out. Last-seen dates come from Skyarium's flight log for the 30 days to Nov 22, 2026.</p>
+  </div>
+</main>
+<section class="app">
+  <div class="wrap">
+    <h2>Spot them in your own sky</h2>
+    <p>Skyarium shows the planes flying near you live in their real paint. A special shows up as itself.</p>
+    <!-- Apple's own badge, unaltered (Apple Marketing Tools); it links to the listing. -->
+    <a class="store" href="https://apps.apple.com/us/app/skyarium/id6826740904"><img src="/assets/app-store-badge.svg" alt="Download on the App Store" width="162" height="54"></a>
+  </div>
+</section>
+<footer>
+  <div class="wrap">
+    <p class="credits">Airline names, logos and liveries belong to their owners. The drawings are ours, built from each plane's measured shape and its scheme in Open Liveries. The logos are our own simplified marks.</p>
+    <p><a href="/">Skyarium</a> · <a href="/liveries/">Liveries</a> · <a href="/liveries/specials/">Special liveries</a> · <a href="/support.html">Support</a> · <a href="/privacy.html">Privacy</a> · © 2026 Skyarium</p>
+  </div>
+</footer>
+<script>
+
+  const box = document.getElementById("q"), results = document.getElementById("results"), all = document.getElementById("all");
+  const listEl = document.getElementById("list"), count = document.getElementById("count");
+  const norm = (t) => String(t ?? "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, "");
+  const esc = (t) => String(t ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+  const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const day = (iso) => { const [y, m, d] = iso.split("-").map(Number); return MONTHS[m - 1] + " " + d; };
+  let db = null;
+  const load = () => db ??= fetch("search.json").then((r) => r.json()).then((j) => {
+    for (const l of j.liveries)
+      l.hay = [l.name, l.aside, l.airline, l.code, l.kind, l.kind === "retro" ? "heritage" : "", ...l.types, ...l.tails.map((t) => t.reg)].map(norm);
+    return j;
+  });
+  const render = async () => {
+    const words = box.value.trim().split(/\s+/).map(norm).filter(Boolean);
+    const url = new URL(location.href);
+    if (words.length) url.searchParams.set("q", box.value.trim()); else url.searchParams.delete("q");
+    history.replaceState(null, "", url);
+    if (!words.length) { results.hidden = true; all.hidden = false; return; }
+    const j = await load();
+    // Joined words match too ("737 max" is "737max"), each word must hit some field.
+    const hits = j.liveries.filter((l) => words.every((w) => l.hay.some((h) => h.includes(w))) || l.hay.some((h) => h.includes(words.join(""))));
+    // Hits in the name or a tail first, then the rest (a retro found by "heritage").
+    const strong = (l) => words.some((w) => norm(l.name).includes(w) || l.tails.some((t) => norm(t.reg).includes(w)));
+    hits.sort((a, b) => strong(b) - strong(a));
+    count.textContent = hits.length === 0 ? "No livery matches that." : hits.length === 1 ? "1 livery matches" : hits.length + " liveries match";
+    listEl.innerHTML = hits.map((l) => {
+      const tails = l.tails.map((t) => {
+        const hit = words.some((w) => norm(t.reg).includes(w));
+        return '<li' + (hit ? ' class="hit"' : '') + '><span class="reg">' + esc(t.reg) + '</span>' + (t.type ? ' <span class="type">' + esc(t.type) + '</span>' : '') +
+          (j.seenTo ? ' <span class="last">' + (t.last ? 'last seen ' + day(t.last) : 'not seen lately') + '</span>' : '') + '</li>';
+      }).join("");
+      return '<li><a href="' + l.slug + '/"><div class="sky"><img src="' + l.thumb[0] + '" width="' + l.thumb[1] + '" height="' + l.thumb[2] + '" alt="" decoding="async"></div>' +
+        '<div class="about"><h3>' + esc(l.name) + '</h3><div class="what">' + esc([l.airline, l.type].join(" · ")) + '</div></div></a>' +
+        '<ul class="rtails" aria-label="Tails">' + tails + '</ul></li>';
+    }).join("");
+    results.hidden = false; all.hidden = true;
+  };
+  let timer;
+  box.addEventListener("input", () => { clearTimeout(timer); timer = setTimeout(render, 80); });
+  box.addEventListener("focus", load, { once: true });
+  box.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") { box.value = ""; render(); }
+    if (e.key === "Enter") { const first = listEl.querySelector("a"); if (first && !results.hidden) first.focus(); }
+  });
+  const q = new URLSearchParams(location.search).get("q");
+  if (q) { box.value = q; render(); }
+
+</script>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3654daf9d369430b9e6506e37a868d38"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

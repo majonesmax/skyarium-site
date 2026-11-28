@@ -3,10 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Liveries · Skyarium</title>
-<meta name="description" content="Skyarium draws every plane as its real aircraft in the paint it flies today. Turn four of them around in 3D.">
+<title>Airline liveries in their real paint · Skyarium</title>
+<meta name="description" content="Skyarium draws every plane as its real aircraft in the paint it flies today. Turn four of them around in 3D and browse the special liveries flying in the US and Canada.">
+<link rel="canonical" href="https://skyarium.app/liveries/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Skyarium">
 <meta property="og:title" content="Every plane in its real paint · Skyarium">
 <meta property="og:description" content="Skyarium draws every plane as its real aircraft in the paint it flies today.">
+<meta property="og:url" content="https://skyarium.app/liveries/">
+<meta property="og:image" content="https://skyarium.app/liveries/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="apple-itunes-app" content="app-id=6826740904">
 <meta name="theme-color" content="#1b1838">
 <link rel="icon" href="../assets/favicon-64.png">
 <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
@@ -52,6 +61,12 @@
   .plane .what { color: var(--muted); font-size: 15px; }
   .turn { flex: none; padding: 7px 14px; border-radius: 999px; border: 1px solid #f3ede455; font-size: 14px; font-weight: 600; }
   .note { color: var(--muted); font-size: 15px; margin: 34px 0 0; max-width: 680px; }
+  .specials { margin-top: 56px; padding-top: 44px; border-top: 1px solid var(--line); }
+  .specials h2 { font-size: clamp(24px, 3.6vw, 32px); margin-bottom: 12px; }
+  .specials p { color: var(--muted); margin: 0; max-width: 680px; }
+  .specials .links { margin-top: 18px; }
+  .specials .links a { color: var(--glow); font-weight: 600; text-decoration: none; font-size: 18px; }
+  .specials .links a:hover { text-decoration: underline; }
 
   .open { padding: 64px 0 72px; border-top: 1px solid var(--line); }
   .open h2 { font-size: clamp(24px, 3.6vw, 32px); margin-bottom: 12px; }
@@ -105,6 +120,11 @@
   <div class="wrap">
     <div class="planes" id="planes"></div>
     <p class="note">Each drawing is built from the aircraft's measured shape and its airline's scheme and checked against dated photos. The logos are our own simplified marks. Airline names, logos and liveries belong to their owners.</p>
+    <div class="specials">
+      <h2>Special liveries</h2>
+      <p>The special paint jobs flying in the US and Canada and the tails that wear them. Search them by airline, name, aircraft or tail number.</p>
+      <p class="links"><a href="specials/">Find a special livery →</a></p>
+    </div>
   </div>
 </main>
 
@@ -158,7 +178,8 @@
     button.addEventListener("click", () => {
       dialog.querySelector(".bar h2").textContent = plane.airline;
       dialog.querySelector(".bar .what").textContent = plane.what;
-      frame.src = `turntable.html?i=${i}`;
+      // Replaced, not navigated, so opening and closing the 3D view adds nothing to the Back history.
+      frame.contentWindow.location.replace(`turntable.html?m=${encodeURIComponent(MODELS[i])}`);
       dialog.showModal();
     });
     list.appendChild(button);
@@ -167,7 +188,7 @@
   dialog.querySelector(".close").addEventListener("click", close);
   dialog.addEventListener("click", (e) => { if (e.target === dialog) close(); });
   // Closing frees the model and its WebGL context.
-  dialog.addEventListener("close", () => { frame.src = "about:blank"; });
+  dialog.addEventListener("close", () => { frame.contentWindow.location.replace("about:blank"); });
 </script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3654daf9d369430b9e6506e37a868d38"}'></script><!-- End Cloudflare Web Analytics -->
 </body>

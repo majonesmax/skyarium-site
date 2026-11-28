@@ -3,8 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="robots" content="noindex">
 <title>Turntable</title>
-<!-- The app's 3D turntable (D267) in the liveries page's dialog: ?i= picks one of PLANES. -->
+<!-- A baked 3D model (D307) on the app's turntable, in a page's dialog: ?m= names the model, only under /liveries/. -->
 <style>
   /* Its own sky (the card's golden hour, as on the page): a frame without its own color scheme on a dark page is
      painted white. */
@@ -14,16 +15,14 @@
   html { background: linear-gradient(180deg, #5f5d8c 0%, #8a7596 45%, #c4918a 80%, #d9a585 100%) fixed; }
   p { position: fixed; inset: auto 0 45% 0; margin: 0; text-align: center; color: #f3ede4; font: 16px/1.5 Inter, -apple-system, sans-serif; }
 </style>
-<script src="data.js"></script>
-<script src="openliveries_renderer.js"></script>
-<script src="card_drawing.js"></script>
-<script src="card_3d.js"></script>
+<script src="/liveries/turntable_3d.js"></script>
 </head>
 <body>
 <script>
-  const plane = PLANES[Number(new URLSearchParams(location.search).get("i")) || 0];
   const say = (text) => { const p = document.createElement("p"); p.textContent = text; document.body.appendChild(p); };
-  CardTurntable.start({ ref: plane.ref, shape: plane.shape, pixelRatio: 2 })
+  const url = new URLSearchParams(location.search).get("m") || "";
+  if (!/^\/liveries\/[\w\/.-]+\.glb$/.test(url) || url.includes("..")) say("There's no model here.");
+  else BakedTurntable.start({ url, pixelRatio: 2 })
     .then((out) => { if (out === "fallback") say("This browser can't show 3D."); })
     .catch(() => say("This browser can't show 3D."));
 </script>

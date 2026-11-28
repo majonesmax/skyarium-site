@@ -1,0 +1,34 @@
+{
+  "pack": 1,
+  "format": 1,
+  "date": "2026-11-27",
+  "openLiveries": {
+    "version": "2026.11.27",
+    "commit": "3c9b0e620b42fa0224f1207753dd70245e79869a"
+  },
+  "skyarium": {
+    "commit": "108ca1b200953e7103ceb4abff1ed044fdf245c5"
+  },
+  "files": [
+    {
+      "name": "card_liveries.json",
+      "size": 1526737,
+      "sha256": "372679403ff01c0b0384ec06809ce9a9d737451a3b02a6996759579777199da8"
+    },
+    {
+      "name": "special_liveries.json",
+      "size": 1218516,
+      "sha256": "c13c05c79f591694814224a7772cc73214283caf1bc4e5d1a7dcb7a2c524a8d4"
+    },
+    {
+      "name": "marks.json",
+      "size": 1937064,
+      "sha256": "68050edca9c8b7237d9a099b9bc179477f89b0a3731b8ed141a03bd57e6a3853"
+    },
+    {
+      "name": "plane_shapes.json",
+      "size": 204286,
+      "sha256": "14eeb628c8af71a7442e1e6f3d6dd1b5375bb5de5a49de4edec09dabfc859dfe"
+    }
+  ]
+}

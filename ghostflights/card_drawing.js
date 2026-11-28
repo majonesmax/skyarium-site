@@ -200,6 +200,21 @@
       // nose is on the right: a mark that faces forward (`mirror`) is flipped to; any other reads the same.
       const flip = side === 'right' && mark.mirror;
       const unflip = flip ? keeper(mark) : undefined;
+      // On the 3D body (`texture`) a fuselage mark is wrapped as its paint is, as the Horizon does
+      // (PlaneModel.logoFaces, D309): a mark is drawn as the side view shows it, so its height is laid out through the
+      // side view's sin(y) and its width kept the side view's. Unwrapped, a mark from crown to belly drew half as wide
+      // again as in the card (Illinois One's eagle ran off the nose). Near the middle of the side it's the same as before.
+      const sn = (v) => Math.sin((Math.max(-1, Math.min(1, v)) * Math.PI) / 2);
+      const [ay, hh] = [logo.at[1], logo.height];
+      const hs = sn(ay + hh / 2) - sn(ay - hh / 2);
+      const wrap =
+        texture && logo.place === 'fuselage' && !mark.tile
+          ? ([x, y]) => {
+              const yy = (Math.asin(Math.max(-1, Math.min(1, sn(ay) + (y - 0.5) * hs))) * 2) / Math.PI;
+              // The box is hh * yUnit tall, yUnit a quarter turn's length over two (pi r / 2): hs radii as a share of it.
+              return [mark.aspect / 2 + ((x - mark.aspect / 2) * hs * 2) / (Math.PI * hh), 0.5 + (yy - ay) / hh];
+            }
+          : (q) => q;
       const copy = ({ x: cx, y: cy, h, stretch = 1 }) => {
         const x0 = cx - (mark.aspect * h * stretch) / 2;
         const y0 = cy + h / 2;
@@ -208,7 +223,7 @@
         return mark.shapes
           .map((s) => {
             const fill = typeof s.c === 'number' ? (colors[s.c] ?? '#999999') : s.c;
-            const place = s.keep && unflip ? (p) => at(unflip(p)) : point;
+            const place = s.keep && unflip ? (p) => at(wrap(unflip(p))) : (p) => point(wrap(p));
             const ring = (points) => 'M' + points.map(place).join('L') + 'Z';
             const d = [s.p, ...(s.holes || [])].map(ring).join('');
             return `<path d="${d}" fill="${fill}" fill-rule="evenodd"/>`;
@@ -373,6 +388,15 @@
   }
 
   /**
+   * Whether a scheme takes a jet's own tail art, as the Horizon decides (OpenLiveries.takesArt): an everyday scheme,
+   * or a special whose fin keeps Open Liveries' art slot (Frontier's green America's Green Airline, each jet with its
+   * own bald eagle). Other specials paint their own fin.
+   */
+  function takesArt(scheme) {
+    return scheme.kind !== 'special' || (scheme.logos || []).some((l) => l.place === 'fin' && l.mark === 'FFT/animal-tail');
+  }
+
+  /**
    * A request's scheme and shape: `ref` is "liveries/<id>" or "airlines/<code>" in card_liveries.json; `art` a jet's
    * own tail art ({ name, subject, family, colors }) in place of the scheme's fin logos. Undefined if either isn't there.
    */
@@ -394,7 +418,7 @@
       );
       scheme = { ...scheme, types };
     }
-    const key = art && artMark(art);
+    const key = art && takesArt(scheme) && artMark(art);
     if (key) {
       // As the Horizon does (OpenLiveries.withArt): a portrait drawn in the fin's frame (`fin`) at the fin's middle as
       // tall as the fin, the fin's outline trimming it; a family's silhouette in the animal's colours a little low on
@@ -409,6 +433,17 @@
         colors: art.colors && art.colors.length ? art.colors : ['#595959'],
         fit: !fin,
       });
+      // The art's part on the fuselage, where it has one (Frederick's head and talons by the aft door), as the Horizon
+      // adds it (OpenLiveries.withArt).
+      const body = root.CARD_DATA.marks.marks[key + '+body'];
+      if (body && body.body)
+        scheme.logos.push({
+          mark: key + '+body',
+          place: 'fuselage',
+          at: [body.body[0], body.body[1]],
+          height: body.body[2],
+          colors: art.colors && art.colors.length ? art.colors : ['#595959'],
+        });
     }
     return { scheme, shape, drawnOn: drawnOnShape(scheme) };
   }

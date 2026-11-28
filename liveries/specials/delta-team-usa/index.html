@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Team USA livery · Delta Air Lines · Skyarium</title>
+<meta name="description" content="Delta Air Lines' Team USA (A330-900) livery has flown since January 2022 on the Airbus A330-900 N411DX. See both sides of it and the tails that wear it.">
+<link rel="canonical" href="https://skyarium.app/liveries/specials/delta-team-usa/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Skyarium">
+<meta property="og:title" content="Team USA livery · Delta Air Lines">
+<meta property="og:description" content="Delta Air Lines' Team USA (A330-900) livery has flown since January 2022 on the Airbus A330-900 N411DX. See both sides of it and the tails that wear it.">
+<meta property="og:url" content="https://skyarium.app/liveries/specials/delta-team-usa/">
+<meta property="og:image" content="https://skyarium.app/liveries/specials/delta-team-usa/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="apple-itunes-app" content="app-id=6826740904">
+<meta name="theme-color" content="#1b1838">
+<link rel="icon" href="/assets/favicon-64.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root { --night: #121430; --deep: #1b1838; --glow: #f7c98b; --mint: #4fd1b0; --ink: #f3ede4; --muted: #b9b2c6;
+    --line: rgba(243, 237, 228, 0.12); --sky: linear-gradient(180deg, #5f5d8c 0%, #8a7596 45%, #c4918a 80%, #d9a585 100%);
+    color-scheme: dark; }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  body { margin: 0; background: var(--night); color: var(--ink);
+    font: 17px/1.6 Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; }
+  a { color: var(--glow); }
+  img { max-width: 100%; height: auto; }
+  h1, h2, h3 { font-family: Fraunces, Georgia, serif; font-weight: 650; line-height: 1.15; margin: 0; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+  header { background: linear-gradient(180deg, #121430 0%, #2a2350 60%, #3b2c55 100%); padding: 22px 0 44px; }
+  .crumbs { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; font-size: 15px; color: var(--muted); }
+  .crumbs a { color: var(--ink); text-decoration: none; font-weight: 600; }
+  .crumbs a:hover { text-decoration: underline; }
+  .home { display: inline-flex; align-items: center; gap: 10px; }
+  .home img { width: 28px; height: 28px; border-radius: 7px; }
+  .eyebrow { margin-top: 48px; color: var(--mint); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; font-size: 13px; }
+  h1 { font-size: clamp(36px, 6vw, 58px); margin: 10px 0 8px; letter-spacing: -0.01em; }
+  .aside { font-family: Fraunces, Georgia, serif; font-size: clamp(19px, 2.6vw, 24px); color: var(--glow); margin: 0; }
+  .lead { color: #e1d8e6; font-size: 19px; max-width: 660px; margin: 8px 0 0; }
+  main { padding: 8px 0 64px; background: linear-gradient(180deg, #3b2c55 0, var(--night) 360px); }
+  main h2 { font-size: 22px; margin: 0 0 12px; }
+
+  .sides { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .sides figure { margin: 0; }
+  .sky { background: var(--sky); border-radius: 6px; aspect-ratio: 2 / 1; display: flex; align-items: center; justify-content: center; }
+  .sky img { display: block; width: 92%; max-height: 86%; object-fit: contain; }
+  figcaption { color: var(--muted); font-size: 14px; margin-top: 8px; }
+  .turn3d { margin: 18px 0 0; }
+  .turn { padding: 9px 18px; border-radius: 999px; border: 1px solid #f3ede455; background: rgba(255, 255, 255, 0.06);
+    color: var(--ink); font: 600 15px Inter, sans-serif; cursor: pointer; }
+  .turn:hover, .turn:focus-visible { border-color: var(--glow); outline: none; }
+
+  /* The turntable (as on /liveries/): the app's 3D model, baked, in a frame over the card's sky. */
+  dialog { width: min(960px, 100vw - 32px); height: min(620px, 100svh - 32px); padding: 0; border: 0; border-radius: 28px;
+    background: var(--sky); color: var(--ink); box-shadow: 0 40px 120px #000c; overflow: hidden; }
+  dialog::backdrop { background: #0b0c18cc; backdrop-filter: blur(4px); }
+  dialog iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  dialog .bar { position: absolute; left: 0; right: 0; top: 0; display: flex; justify-content: space-between; align-items: start;
+    padding: 18px 20px; pointer-events: none; }
+  dialog .bar h2 { font-size: 22px; text-shadow: 0 1px 8px #0006; margin: 0; }
+  dialog .bar .what { font-size: 15px; color: #f3ede4cc; }
+  dialog .close { pointer-events: auto; width: 40px; height: 40px; border-radius: 50%; border: 0; background: #0b0c18b3;
+    color: var(--ink); font-size: 22px; line-height: 1; cursor: pointer; }
+  dialog .hint { position: absolute; left: 0; right: 0; bottom: 16px; text-align: center; font-size: 14px; color: #f3ede4cc;
+    pointer-events: none; }
+  .cols { display: grid; grid-template-columns: 1fr; max-width: 720px; gap: 36px; margin-top: 44px; padding-top: 36px; border-top: 1px solid var(--line); }
+  .about p { margin: 0 0 14px; color: #e1d8e6; }
+  .lic { color: var(--muted); font-size: 15px; }
+  dl { margin: 0 0 30px; display: grid; gap: 8px; }
+  dl div { display: grid; grid-template-columns: 120px 1fr; gap: 12px; border-bottom: 1px solid var(--line); padding-bottom: 8px; }
+  dt { color: var(--muted); font-size: 15px; }
+  dd { margin: 0; }
+  .tails { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+  .tails li { display: grid; gap: 2px; border-left: 2px solid var(--mint); padding-left: 12px; }
+  .tails .reg { font-weight: 600; letter-spacing: 0.02em; }
+  .tails .type, .tails .where { color: var(--muted); font-size: 15px; }
+  .tails .where b { color: var(--ink); font-weight: 600; }
+  .tails .none { font-style: italic; }
+  .source { color: var(--muted); font-size: 15px; max-width: 720px; margin: 36px 0 0; }
+  .more { margin-top: 44px; padding-top: 32px; border-top: 1px solid var(--line); }
+  .more ul { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px 26px; }
+  .more a { font-weight: 600; text-decoration: none; }
+  .more a:hover { text-decoration: underline; }
+
+  .honest { color: var(--muted); font-size: 15px; margin: 18px 0 0; max-width: 660px; }
+  header .honest { color: #d6cde0; }
+  .back { margin: 32px 0 0; }
+  .back a { font-weight: 600; text-decoration: none; }
+  .back a:hover { text-decoration: underline; }
+  .find { display: grid; gap: 8px; margin-top: 28px; max-width: 560px; }
+  .find label { color: #e1d8e6; font-size: 15px; font-weight: 600; }
+  .find input { width: 100%; padding: 12px 14px; border-radius: 6px; border: 1px solid #f3ede455; background: #0b0c1899;
+    color: var(--ink); font: 17px Inter, sans-serif; }
+  .find input:focus { outline: 2px solid var(--glow); outline-offset: 1px; border-color: transparent; }
+  .find input::placeholder { color: #9a93a8; }
+  .count { color: var(--muted); font-size: 15px; margin: 28px 0 16px; }
+  .results { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+  .results > li { display: grid; grid-template-columns: minmax(180px, 240px) 1fr; gap: 0 20px; align-items: center;
+    border: 1px solid var(--line); border-radius: 8px; background: rgba(255, 255, 255, 0.045); overflow: hidden; }
+  .results > li > a { display: grid; grid-template-columns: subgrid; grid-column: 1 / 2; text-decoration: none; color: inherit; }
+  .results > li > a:focus-visible { outline: 2px solid var(--glow); outline-offset: -2px; }
+  .results .sky { border-radius: 0; }
+  .results .about { padding: 10px 14px 12px; }
+  .results h3 { font-size: 19px; }
+  .results .what { color: var(--muted); font-size: 14px; }
+  .rtails { list-style: none; margin: 0; padding: 12px 16px 12px 0; display: grid; gap: 4px; font-size: 15px; }
+  .rtails .reg { font-weight: 600; letter-spacing: 0.02em; }
+  .rtails .type, .rtails .last { color: var(--muted); font-size: 14px; margin-left: 6px; }
+  .rtails .hit .reg { color: var(--glow); }
+  @media (max-width: 640px) { .results > li { grid-template-columns: 1fr; } .results > li > a { grid-column: 1; } .rtails { padding: 0 14px 14px; } }
+  .jump { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 28px; }
+  .jump a { font-weight: 600; text-decoration: none; }
+  .jump a:hover { text-decoration: underline; }
+  .airline { padding-top: 36px; }
+  .airline h2 { font-size: 28px; margin-bottom: 18px; }
+  .airline h2 span { font: 500 16px Inter, sans-serif; color: var(--muted); margin-left: 6px; }
+  .grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .grid a { display: block; height: 100%; text-decoration: none; color: inherit; border: 1px solid var(--line); border-radius: 8px;
+    background: rgba(255, 255, 255, 0.045); overflow: hidden; transition: border-color 0.2s; }
+  .grid a:hover, .grid a:focus-visible { border-color: #f7c98b88; outline: none; }
+  .grid .sky { border-radius: 0; }
+  .grid .about { padding: 12px 16px 14px; }
+  .grid h3 { font-size: 19px; }
+  .grid .what, .grid .regs { color: var(--muted); font-size: 14px; }
+  .grid .regs { margin-top: 4px; letter-spacing: 0.02em; }
+  .empty { color: var(--muted); text-align: center; padding: 40px 0; }
+
+  .app { text-align: center; padding: 64px 0 72px; border-top: 1px solid var(--line); }
+  .app h2 { font-size: clamp(28px, 4.4vw, 38px); margin-bottom: 12px; }
+  .app p { color: var(--muted); margin: 0 auto 26px; max-width: 540px; }
+  .store img { height: 54px; width: auto; }
+  footer { border-top: 1px solid var(--line); padding: 36px 0 56px; color: var(--muted); font-size: 14px; }
+  footer p { margin: 0 0 10px; max-width: 720px; }
+
+
+  @media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 760px) {
+    .sides, .cols { grid-template-columns: 1fr; }
+    .cols { gap: 32px; }
+    .eyebrow { margin-top: 36px; }
+  }
+  @media (max-width: 560px) { .grid { grid-template-columns: 1fr; } }
+  @media (max-width: 420px) { .wrap { padding: 0 16px; } dl div { grid-template-columns: 104px 1fr; } }
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Liveries","item":"https://skyarium.app/liveries/"},{"@type":"ListItem","position":2,"name":"Special liveries","item":"https://skyarium.app/liveries/specials/"},{"@type":"ListItem","position":3,"name":"Team USA","item":"https://skyarium.app/liveries/specials/delta-team-usa/"}]}</script>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb"><a class="home" href="/"><img src="/assets/apple-touch-icon.png" alt="" width="28" height="28">Skyarium</a><span>›</span><a href="/liveries/">Liveries</a><span>›</span><a href="/liveries/specials/">Special liveries</a></nav>
+    <div class="eyebrow">Delta Air Lines · Special</div>
+    <h1>Team USA</h1>
+    <p class="aside">A330-900</p>
+  </div>
+</header>
+<main>
+  <div class="wrap">
+    <div class="sides">
+      <figure><div class="sky"><img src="delta-team-usa-left.webp" width="1100" height="273" alt="Delta Team USA livery on the A330-900, left side, as Skyarium draws it" decoding="async"></div><figcaption>Left side</figcaption></figure>
+      <figure><div class="sky"><img src="delta-team-usa-right.webp" width="1100" height="273" alt="Delta Team USA livery on the A330-900, right side, as Skyarium draws it" decoding="async" loading="lazy"></div><figcaption>Right side</figcaption></figure>
+    </div>
+    <p class="turn3d"><button class="turn" type="button" id="turn3d">Turn in 3D</button></p>
+
+    <div class="cols">
+      <section class="about">
+        <h2>About the paint</h2>
+        <p>Delta's Team USA jet, the A330-900 N411DX. Blue bands sweep up from the belly to the crown over the wing with a red field and navy belly aft. &quot;TEAM USA&quot; runs huge in navy across the windows with the Olympic rings and &quot;OFFICIAL AIRLINE&quot; forward.</p>
+        
+      </section>
+      <section class="facts">
+        <dl>
+          <div><dt>Airline</dt><dd>Delta Air Lines</dd></div>
+          <div><dt>Livery</dt><dd>Team USA</dd></div>
+          <div><dt>Flying since</dt><dd>January 2022</dd></div>
+          <div><dt>Drawn on</dt><dd>Airbus A330-900</dd></div>
+        </dl>
+        <h2>The tail that flies it</h2>
+        <ul class="tails">
+        <li><span class="reg">N411DX</span><span class="type">Airbus A330-900 · in this paint since January 2022</span><span class="where">Seen at <b>ATL</b> (12 days), <b>GRU</b> (6 days), <b>AMS</b> (3 days) and <b>JFK</b> (3 days) · last Nov 22, 2026</span></li>
+        </ul>
+        <p class="honest">Our livery data is our own project and it isn't complete. The tails listed are the ones we've matched to each livery in our own data. It's not a full registry.</p>
+      </section>
+    </div>
+    <p class="source">The name, dates and paint come from Open Liveries' record of this scheme, written from dated photos. Where the tails have been comes from Skyarium's flight log for the 30 days to Nov 22, 2026. It shows where they've been and not where they're going.</p>
+    <nav class="more" aria-label="More Delta liveries"><h2>More from Delta</h2><ul><li><a href="../delta-100-years/">Delta 100 Years</a></li></ul></nav>
+    <p class="back"><a href="/liveries/specials/?q=Delta">Search the special liveries →</a></p>
+  </div>
+</main>
+<section class="app">
+  <div class="wrap">
+    <h2>See it in your own sky</h2>
+    <p>Skyarium shows the planes flying near you live in their real paint. When N411DX flies by it shows up as Team USA.</p>
+    <!-- Apple's own badge, unaltered (Apple Marketing Tools); it links to the listing. -->
+    <a class="store" href="https://apps.apple.com/us/app/skyarium/id6826740904"><img src="/assets/app-store-badge.svg" alt="Download on the App Store" width="162" height="54"></a>
+  </div>
+</section>
+<dialog id="turntable" aria-label="The plane in 3D">
+  <iframe title="The plane in 3D"></iframe>
+  <div class="bar">
+    <div><h2>Team USA</h2><div class="what">Delta · A330-900</div></div>
+    <button class="close" type="button" aria-label="Close">×</button>
+  </div>
+  <div class="hint">Drag to turn it · pinch or scroll to zoom</div>
+</dialog>
+<footer>
+  <div class="wrap">
+    <p class="credits">Airline names, logos and liveries belong to their owners. The drawings are ours, built from each plane's measured shape and its scheme in Open Liveries. The logos are our own simplified marks.</p>
+    <p><a href="/">Skyarium</a> · <a href="/liveries/">Liveries</a> · <a href="/liveries/specials/">Special liveries</a> · <a href="/support.html">Support</a> · <a href="/privacy.html">Privacy</a> · © 2026 Skyarium</p>
+  </div>
+</footer>
+<script>
+  // The turntable (D307): three.js and the model load only when it opens; closing frees them.
+  const dialog = document.getElementById("turntable"), frame = dialog.querySelector("iframe");
+  document.getElementById("turn3d").addEventListener("click", () => {
+    // Replaced, not navigated, so opening and closing the 3D view adds nothing to the Back history.
+    frame.contentWindow.location.replace("/liveries/turntable.html?m=" + encodeURIComponent("/liveries/specials/delta-team-usa/delta-team-usa.glb"));
+    dialog.showModal();
+  });
+  dialog.querySelector(".close").addEventListener("click", () => dialog.close());
+  dialog.addEventListener("click", (e) => { if (e.target === dialog) dialog.close(); });
+  dialog.addEventListener("close", () => { frame.contentWindow.location.replace("about:blank"); });
+</script>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3654daf9d369430b9e6506e37a868d38"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
